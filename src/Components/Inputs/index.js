@@ -2,21 +2,17 @@ import React from 'react';
 
 
 const Input = ({
-    name,
-    defaultValue,
-    ref
-
+   register, 
+   name, 
+   ...rest
 }) => {
 
-
      return (
-
             <input 
-            name={name}
-            defaultValue={defaultValue}
-            ref={ref}
-        />
-
+                name={name}
+                ref={register}
+                {...rest} 
+            />
     );
      
 };
