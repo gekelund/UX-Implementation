@@ -5,7 +5,7 @@ import SoupCard from '../../Components/SoupCard';
 
 const Overview = ({children}) => {
     const { state, updateState } = useContext(StateContext);
-    const { deliveryinfo } = state;
+   /*  const { deliveryinfo } = state; */
 
     console.log(state)
     let history = useHistory()

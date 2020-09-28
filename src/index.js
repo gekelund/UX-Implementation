@@ -5,12 +5,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { FirebaseProvider } from './Firebase/FirebaseContext';
 import { UserProvider } from './Firebase/UserContext';
+import { StateContextProvider } from './StateContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseProvider>
       <UserProvider>
-        <App />
+        <StateContextProvider>
+          <App />
+        </StateContextProvider>
       </UserProvider>
     </FirebaseProvider>
   </React.StrictMode>,
