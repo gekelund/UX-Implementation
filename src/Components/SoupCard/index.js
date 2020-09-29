@@ -7,8 +7,12 @@ const SoupCard = () => {
         <div>
             {soups.map((soup) => 
                 <div style={{border: "2px solid red"}}>
-                    <p>{soup.image}</p>
-                    <p>{soup.infoText}</p>
+                    <div>
+                        <p>{soup.image}</p>
+                    </div>
+                    <div>
+                        <p>{soup.infoText}</p>
+                    </div>
                 </div>
                 )}
             Title + info icon
