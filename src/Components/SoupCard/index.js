@@ -1,21 +1,31 @@
 import React from 'react';
 import { soups } from './Soups';
+import SoupCardStyles from './styles';
 
 const SoupCard = () => {
 
     return (
-        <div>
+        <SoupCardStyles>
             {soups.map((soup) => 
-                <div style={{border: "2px solid red"}}>
-                    <p>{soup.image}</p>
+                <main>
+                  <h4>{soup.image}</h4>
+                  <div>
+                    <h2>{soup.title}</h2>
+                    <h5>Info icon</h5>
+                  </div>
+                  <div>
                     <p>{soup.infoText}</p>
-                </div>
+                    <button>+1</button>
+                  </div>
+                  <div style={{border: "none"}}>
+                      <h5>Time</h5>
+                      <h5>pris</h5>
+                  </div>
+                </main>
                 )}
-            Title + info icon
-            text about the soup + +1 button
-            icon time + time + prize
+          
 
-        </div>
+        </SoupCardStyles>
     )
 }
 
