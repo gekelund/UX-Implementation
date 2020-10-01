@@ -26,3 +26,4 @@ const AppStyles = styled.div.attrs({
   }
 `;
 export default AppStyles;
+
