@@ -6,12 +6,12 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 
 const SoupCardStyles = styled.div.attrs({
-    className: "w-full h-auto flex flex-row flex-wrap items-center justify-center",
+    className: "w-full h-auto flex flex-row flex-wrap items-center justify-center bg-gray-100",
     
 })`
     & {
         section {
-            ${tw`text-left shadow-lg m-6 p-6 w-64 h-auto flex-initial flex-col items-center justify-center rounded-md`}
+            ${tw`bg-white text-left shadow-lg m-6 p-6 w-64 h-auto flex-initial flex-col items-center justify-center rounded-md`}
         }
         div {
             ${tw`w-11/12 flex justify-between items-center border-solid border-b border-t-0 border-r-0 border-l-0 border-gray-600 `}
@@ -36,7 +36,7 @@ const SoupCard = ({onClickButton, onClickPic, onClickInfoIcon}) => {
     return (
         <SoupCardStyles>
             {soups.map((soup) => 
-                <section >
+                <section id={soup.id}>
                   <h2 onClick={onClickPic}>{soup.image}</h2>
                   <div>
                     <h2>{soup.title}</h2>
@@ -48,7 +48,7 @@ const SoupCard = ({onClickButton, onClickPic, onClickInfoIcon}) => {
                   </div>
                   <div style={{border: "none"}}>
                       <h5><QueryBuilderOutlinedIcon />30min</h5>
-                      <h5>Pris: {soup.pris}</h5>
+                      <h5>Pris: {soup.pris} kr</h5>
                   </div>
                 </section>
                 )}

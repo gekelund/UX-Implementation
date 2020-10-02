@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import SoupCard from '../../Components/SoupCard';
+import { StateContext } from '../../StateContext';
 
 import styled from "styled-components";
 import tw from "tailwind.macro";
+import { soups } from '../../Components/SoupCard/Soups';
+import TopBar from '../../Components/TopBar';
 
 const LandingStyling = styled.div.attrs({
     className: "w-full h-screen flex flex-column flex-wrap mt-32 justify-center",
@@ -20,22 +23,43 @@ const LandingStyling = styled.div.attrs({
     }
   `;
 
- const handleButton = (e) => {
-     console.log(e.target)
- }
-
- const handlePic = (e) => {
-     console.log(e.target)
- }
-
- const handleInfo = (e) => {
-    console.log(e.target)
-}
+ 
 
 const LandingPage = () => {
 
+    const { state, updateState } = useContext(StateContext);
+    const [ num, setNum ] = useState(0);
+    const [ totPris, setTotPris ] = useState(0);
+    const { soupe } = state;
+    
+
+    const handleButton = (e) => {
+        soups.map(soup => {
+           if(soup.title === e.target.closest("section").id){
+                updateState(soupe.push({soupe: soup.title, pris: soup.pris}))
+                setNum(num + 1)
+                setTotPris(Number(totPris) + Number(soup.pris))
+            };
+        });
+    }
+   
+    const handlePic = (e) => {
+        console.log(e.target)
+    }
+   
+    const handleInfo = (e) => {
+       console.log(e.target)
+   }
+
+   const handleDelete = (e) => {
+        console.log(e.target)
+   }
+
+   console.log(soupe)
+
     return (
         <LandingStyling>
+            <TopBar number={num} totalpris={totPris} soupeList={soupe} handleDelete={handleDelete} />
             <main>
             <h1>Upptäck våra läckra soppor</h1>
             <h3>Alla soppor kommer med bröd och vispat smör</h3>
