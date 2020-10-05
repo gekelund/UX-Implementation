@@ -2,7 +2,7 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 
 const AppStyles = styled.div.attrs({
-  className: "w-full h-screen flex flex-col items-center justify-center"
+  className: "w-full h-screen flex flex-col items-center justify-center bg-gray-100"
 })`
   & {
     h1 {
@@ -26,3 +26,4 @@ const AppStyles = styled.div.attrs({
   }
 `;
 export default AppStyles;
+

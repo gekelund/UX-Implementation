@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^9.7.4",
     "babel-plugin-macros": "^2.8.0",
     "firebase": "^7.21.0",
-    "postcss-cli": "^8.0.0",
+    "postcss-cli": "^7.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.8.4",
@@ -17,7 +19,7 @@
     "react-scripts": "3.4.3",
     "styled-components": "^5.2.0",
     "tailwind.macro": "^1.0.0-alpha.10",
-    "tailwindcss": "^1.8.10"
+    "tailwindcss": "^1.8.8"
   },
   "scripts": {
     "build:css": "postcss src/tailwind.css -o src/index.css",
