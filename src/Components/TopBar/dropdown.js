@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import { soups } from '../SoupCard/Soups';
 
 
 
@@ -25,6 +26,9 @@ const DropdownStyling = styled.div.attrs({
   `;
 
 const Dropdown = ({soupeList, handleDelete}) => {
+    
+  
+
 
     return (
         <DropdownStyling>
@@ -36,7 +40,8 @@ const Dropdown = ({soupeList, handleDelete}) => {
                         <th>Ta bort</th>
                     </tr>
                 {soupeList ? soupeList.map(soups => (
-                     <tr>
+                     <tr id={soups.ref}> 
+                        {/* <td>{antal}</td> */}
                         <td>{soups.soupe}</td>
                         <td>{soups.pris}</td>
                         <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>

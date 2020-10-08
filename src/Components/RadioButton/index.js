@@ -1,11 +1,11 @@
 import React from 'react';
 
-const RadioButton = ({ value, name, register, label }) => {
+const RadioButton = ({ value, name, register, label, checked }) => {
 
     return (
 
         <label> {label}
-            <input type="radio" value={value} name={name} ref={register} /> 
+            <input type="radio" checked={checked} value={value} name={name} ref={register} /> 
         </label>
     )
 }
