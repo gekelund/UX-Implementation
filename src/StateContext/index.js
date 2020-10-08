@@ -6,6 +6,9 @@ export const StateContext = createContext(null);
 export const StateContextProvider = ({ children }) => {
   const initialState = {
     soupe: [],
+    quantity: 0,
+    ref: 0,
+    totalPris: 0,
     deliveryinfo: "",
     deliveryTime: "",
     dateExpire: Date.now() + 7 * 24 * 60 * 60 * 1000,

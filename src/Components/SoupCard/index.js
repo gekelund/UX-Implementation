@@ -4,6 +4,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import styled from "styled-components";
 import tw from "tailwind.macro";
+import { Link } from 'react-router-dom';
 
 const SoupCardStyles = styled.div.attrs({
     className: "w-full h-auto flex flex-row flex-wrap items-center justify-center bg-gray-100",
@@ -31,7 +32,7 @@ const SoupCardStyles = styled.div.attrs({
     }
   `;
 
-const SoupCard = ({onClickButton, onClickPic, onClickInfoIcon}) => {
+const SoupCard = ({onClickButton, onClickPic}) => {
 
     return (
         <SoupCardStyles>
@@ -40,14 +41,14 @@ const SoupCard = ({onClickButton, onClickPic, onClickInfoIcon}) => {
                   <h2 onClick={onClickPic}>{soup.image}</h2>
                   <div>
                     <h2>{soup.title}</h2>
-                    <InfoOutlinedIcon onClick={onClickInfoIcon} />
+                    <Link style={{textDecoration: "none", color: "black"}} to="/edit"><InfoOutlinedIcon /></Link>
                   </div>
                   <div>
                     <p>{soup.infoText}</p>
                     <button onClick={onClickButton}>+1</button>
                   </div>
                   <div style={{border: "none"}}>
-                      <h5><QueryBuilderOutlinedIcon />30min</h5>
+                      <h5><QueryBuilderOutlinedIcon /> 30min</h5>
                       <h5>Pris: {soup.pris} kr</h5>
                   </div>
                 </section>

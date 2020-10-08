@@ -9,13 +9,13 @@ const TopBarStyling = styled.div.attrs({
   })`
     & {
         nav {
-            ${tw`w-full h-full flex items-end justify-between text-center pb-2 ml-4 mr-4`}
+            ${tw`w-full h-full flex items-end justify-between md:justify-start text-center pb-2 ml-4 mr-4`}
         }
         p {
             ${tw`font-sans font-semibold text-base text-gray-800 m-1`}
         }
         div {
-            ${tw`flex items-center justify-center`}
+            ${tw`flex items-center justify-center md:mr-4`}
         }
         span {
             ${tw`flex ml-2 items-center justify-center border-solid border-2 border-gray-600 w-8 h-8 rounded-full bg-white`}
@@ -29,7 +29,6 @@ const TopBarStyling = styled.div.attrs({
 const TopBar = ({number, totalpris, soupeList, handleDelete}) => {
     const [ open, setOpen ] = useState(false);
 
-    console.log(open)
     const handleDropdown = () => {
         setOpen(!open)
     }
