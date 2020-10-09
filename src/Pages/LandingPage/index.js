@@ -35,7 +35,7 @@ const LandingPage = () => {
         let State = JSON.parse(localStorage.getItem("State"))
         updateState(State);
         
-    }, [])
+    },[])
 
     useEffect(() => {
         localStorage.setItem('State', JSON.stringify(state));
@@ -48,7 +48,7 @@ const LandingPage = () => {
                 updateState({quantity: quantity + 1});
                 updateState({ref: ref + 1})
                 updateState({totalPris: Number(totalPris) + Number(soup.pris)});
-            }
+            } 
         });
     }
    

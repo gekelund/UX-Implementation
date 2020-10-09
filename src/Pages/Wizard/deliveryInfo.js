@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {useContext, useState} from 'react';
+/* import { useHistory } from 'react-router-dom'; */
 import FormGroup from '../../Components/FormGroup';
 import Input from '../../Components/Inputs';
 import RadioButton from '../../Components/RadioButton';
@@ -12,6 +12,8 @@ import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import PhoneOutlinedIcon from '@material-ui/icons/PhoneOutlined';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
+import {StepContext} from './wizardContext';
+
 
 const DeliveryInfoStyling = styled.div.attrs({
     className: "w-full h-screen flex flex-column flex-wrap mt-32 pb-32 justify-center",
@@ -23,40 +25,42 @@ const DeliveryInfoStyling = styled.div.attrs({
         h3 {
             ${tw`font-sans text-xl font-normal text-xl text-gray-600`}
         }
-        button {
-            ${tw`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded`}
+        input#submit {
+            ${tw`w-32 bg-green-500 hover:bg-green-700 text-white shadow-lg font-bold py-2 px-4 mt-10 rounded`}
         }
+        
     }
   `;
 
 
-const DeliveryInfo = ({ children }) => {
-
-        const { state, updateState } = useContext(StateContext);
-        
-        /* const {deliveryinfo} = state;
-        
-        const emptyField = (currentValue) => currentValue !== "";
-        const delInfo = Object.values(deliveryinfo).every(emptyField) */
-        
-        
-        let history = useHistory()
+const DeliveryInfo = () => {
+        const [open, setOpen] = useState(false);
+        const { updateState } = useContext(StateContext);
+        const { stepState , updateStepState} = useContext(StepContext);
+        const { steps } = stepState;
       
         const onSubmit = data => {
-            console.log(data);
-            updateState({deliveryinfo: data});
-            
-           history.push("/wizard/overview");
+        
+                updateState({deliveryinfo: data});
+                updateStepState(steps[0].completed = true);
+                updateStepState({currentStep: 1});
+                updateStepState(steps[1].access = true)
+                
+        }
+      
+        const onChange = (e) => {
+            if(e.target.value !== "datum") {
+                setOpen(false)
+            } else {setOpen(!open)}
         }
 
-       
     return (
         <DeliveryInfoStyling>
             <main>
             <h1>DeliveryInfo</h1>
             <FormGroup onSubmit={onSubmit} id="form1">
                 <Input icon={<PersonOutlineOutlinedIcon style={{fontSize: "30"}} />} name="Namn" placeholder="Mottagarens namn" required={true} />
-                <Input icon={<EmailOutlinedIcon style={{fontSize: "30"}} />} name="Email" placeholder="Email" type="mail" required={true} />
+                <Input icon={<EmailOutlinedIcon style={{fontSize: "30"}} />} name="Email" placeholder="Email" type="mail" required={true}  />
                 <Input icon={<PhoneOutlinedIcon style={{fontSize: "30"}} />} name="Telefon" placeholder="Telefon" type="tel" required={true} />
                 <Input icon={<HomeOutlinedIcon style={{fontSize: "30"}} />} name="Adress" placeholder="Adress" required={true} />
                 <Input icon={<RoomOutlinedIcon style={{fontSize: "30"}} />} name="Postnummer" placeholder="Postnummer" type="number" required={true} />
@@ -64,23 +68,18 @@ const DeliveryInfo = ({ children }) => {
 
                 <TextArea labelName="Meddelande till bud" name="leveransmeddelande" placeholder="Extra information till bud (portkod, våning, mm)" />
                 <TextArea labelName="Skicka en hälsning" name="greeting" placeholder="Skriv din hälsning här" />
-                
-                <RadioButton name="leveranstid" label="Snarast" value="snarast" checked="checked" />
-                <RadioButton name="leveranstid" label="Upphämtning" value="pickup"  />
-                <RadioButton name="leveranstid" label="Annat datum" value="datum"  />
-               
-                <button type="submit" value="Submit">Nästa</button>
+            
+                <RadioButton type="radio" name="leveranstid" label="Snarast" value="snarast" onChange={onChange} defaultValue="snarast" />
+                <RadioButton type="radio" name="leveranstid" label="Upphämtning" value="pickup" onChange={onChange}/>
+                <RadioButton type="radio" name="leveranstid" label="Annat datum" value="datum" onChange={onChange} />
+                    <div style={open ? {display: "block"} : {display: "none"}}>
+                        <p>Add datepicker</p>
+                    </div>
+                   
+                <input id="submit" type="submit" value="Nästa" />
             </FormGroup>
             </main>
             
-
-            {/* TODO: add next button to push to next step in wizard */}
-
-            {/* Not to be used in app. Test for useHistory function */}
-            <button type="button" onClick={() => history.goBack()}>
-                {children}
-                Back
-            </button>
         </DeliveryInfoStyling>
     )
 }

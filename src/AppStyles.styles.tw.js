@@ -5,6 +5,7 @@ const AppStyles = styled.div.attrs({
   className: "w-full h-screen flex flex-col items-center justify-center bg-gray-100"
 })`
   & {
+
     h1 {
       ${tw`font-sans text-6xl font-hairline text-6xl text-teal-500`}
     }

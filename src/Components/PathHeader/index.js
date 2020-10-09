@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import ListOutlinedIcon from '@material-ui/icons/ListOutlined';
 import PaymentOutlinedIcon from '@material-ui/icons/PaymentOutlined';
@@ -6,13 +6,15 @@ import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlin
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import styled from "styled-components";
 import tw from "tailwind.macro";
+import PathStep from './pathStep';
+import {StepContext} from '../../Pages/Wizard/wizardContext';
 
 const PathHeaderStyling = styled.div.attrs({
-    className: "w-full h-64 fixed top-0 left-0 flex justify-center items-center",
+    className: "w-full h-24 fixed top-0 left-0 flex justify-center items-center",
   })`
     & {
         nav {
-            ${tw`w-full h-auto flex justify-between items-center ml-16 mr-16`}
+            ${tw`w-full h-full flex justify-between items-center bg-gray-100 ml-16 mr-16`}
         }
         div {
             ${tw`flex flex-col justify-center items-center`}
@@ -21,35 +23,30 @@ const PathHeaderStyling = styled.div.attrs({
             ${tw`font-sans font-normal text-xs text-gray-800`}
         }
         span {
-            ${tw`w-12 h-12 mb-1 bg-gray-400 rounded-full border-solid border-2 border-gray-300 flex justify-center text-white items-center`}
+            ${tw`w-12 h-12 mb-1 bg-gray-400 rounded-full flex justify-center text-white items-center`}
         }
+         
     }
   `;
 
-const PathHeader = () => {
 
+
+
+const PathHeader = ({handleDeliveryInfo, handleOverview, handleConfirmation, handlePay}) => {
+   const {stepState} = useContext(StepContext);
+
+   const {steps} = stepState;
+console.log(steps)
     return (
         <PathHeaderStyling>
             <nav>
-                <div>
-                    <span><EmailOutlinedIcon style={{fontSize: "34"}} /></span>
-                    <p>Leveransinfo</p>
-                </div>
+                <PathStep style={steps[0].access ? {backgroundColor: "green"} : {}} id={0} onClick={handleDeliveryInfo} icon={<EmailOutlinedIcon />} stepLabel="Leveransinfo" />
                 <RemoveOutlinedIcon />
-                <div>
-                    <span><ListOutlinedIcon style={{fontSize: "34"}} /></span>
-                    <p>Orderöversikt</p>
-                </div>
+                <PathStep style={steps[1].access ? {backgroundColor: "green"} : {}} id={1} onClick={handleOverview} icon={<ListOutlinedIcon />} stepLabel="Orderöversikt" />
                 <RemoveOutlinedIcon />
-                <div>
-                    <span><PaymentOutlinedIcon style={{fontSize: "34"}} /></span>
-                    <p>Betalning</p>
-                </div>
+                <PathStep style={steps[2].access ? {backgroundColor: "green"} : {}} id={2} onClick={handlePay} icon={<PaymentOutlinedIcon />} stepLabel="Betalning" />
                 <RemoveOutlinedIcon />
-                <div>
-                    <span><CheckCircleOutlineOutlinedIcon style={{fontSize: "34"}} /></span>
-                    <p>Bekräftelse</p>
-                </div>
+                <PathStep style={steps[3].access ? {backgroundColor: "green"} : {}} id={3} onClick={handleConfirmation} icon={<CheckCircleOutlineOutlinedIcon />} stepLabel="Bekräftelse" />
             </nav>
         </PathHeaderStyling>
     )

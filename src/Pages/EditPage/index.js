@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, /* useEffect */ } from 'react';
 import Ingredienser from '../../Components/Ingredienser';
 import Nutritionl from '../../Components/Nutritional';
 import { StateContext } from '../../StateContext';
@@ -6,10 +6,10 @@ import { StateContext } from '../../StateContext';
 const EditPage = () => {
     const { state, updateState } = useContext(StateContext);
 
-    useEffect(() => {
+   /*  useEffect(() => {
         let State = JSON.parse(localStorage.getItem("State"))
         updateState(State);
-    },[])
+    },[]) */
 
 console.log(state)
 

@@ -1,18 +1,47 @@
 import React, {
-    useState, 
     useReducer, 
-    useContext, 
     createContext,
 } from 'react';
-import DeliveryInfo from './deliveryInfo';
 
-const WizardContext = () => {
 
-   return (
-       <div>
-           Wizard
-       </div>
-   )
-}
+export const StepContext = createContext(null);
 
-export default WizardContext;
+
+export const StepContextProvider = ({ children }) => {
+  const initialState = {
+      currentStep: 0,
+      steps: [
+          {
+              id: 0,
+              completed: false,
+              access: true,
+            }, 
+          {
+            id: 1,
+            completed: false,
+            access: false,
+          }, 
+          {
+            id: 2,
+            completed: false,
+            access: false,
+          },
+          {
+            id: 3,
+            completed: false,
+            access: false,
+          }  
+        ]
+
+    };
+
+  const reducer = (currentState, newState) => ({ ...currentState, ...newState });
+  
+  const [stepState, updateStepState] = useReducer(reducer, initialState);
+
+  return (
+    <StepContext.Provider value={{ stepState, updateStepState }}>
+      {children}
+    </StepContext.Provider>
+  );
+};
