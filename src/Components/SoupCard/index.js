@@ -41,7 +41,7 @@ const SoupCard = ({onClickButton, onClickPic}) => {
                   <h2 onClick={onClickPic}>{soup.image}</h2>
                   <div>
                     <h2>{soup.title}</h2>
-                    <Link style={{textDecoration: "none", color: "black"}} to="/edit"><InfoOutlinedIcon /></Link>
+                    <Link style={{textDecoration: "none", color: "black"}} to={`/edit/${soup.id}`}><InfoOutlinedIcon /></Link>
                   </div>
                   <div>
                     <p>{soup.infoText}</p>

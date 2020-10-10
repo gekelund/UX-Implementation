@@ -34,7 +34,6 @@ const LandingPage = () => {
     useEffect(() => {
         let State = JSON.parse(localStorage.getItem("State"))
         updateState(State);
-        
     },[])
 
     useEffect(() => {
@@ -54,6 +53,7 @@ const LandingPage = () => {
    
     const handlePic = (e) => {
         console.log(e.target)
+        
     }
    
    

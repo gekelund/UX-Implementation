@@ -11,7 +11,7 @@ import Wizard from '../Pages/Wizard';
 export const LANDING = '/';
 export const SIGN_IN = '/signin';
 export const WIZARD = '/wizard';
-export const EDIT = '/edit'
+export const EDIT = '/edit/:soupID';
 
 
 const Routes = () => (
