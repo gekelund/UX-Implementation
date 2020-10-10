@@ -1,101 +1,61 @@
-/* import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  useLocation
-} from "react-router-dom";
+import React, { useContext} from 'react';
+import {StepContext} from './wizardContext';
 import DeliveryInfo from './deliveryInfo';
 import Overview from './overview';
 import Confirmation from './confirmation';
+import PathHeader from '../../Components/PathHeader';
+
 
 const Wizard = () => {
+const { stepState , updateStepState} = useContext(StepContext);
 
-const StepPages = () => {
-    const location = useLocation();
-    return (
-      <>
-        <nav >
-          <ul >
-            <li className={location.pathname === "/delivery-info" ? "active" : ""}>
-              <Link to="/wizard/delivery-info">Delivery info</Link>
-            </li>
-            <li className={location.pathname === "/overview" ? "active" : ""}>
-              <Link to="/wizard/overview">Overview</Link>
-            </li>
-            <li className={location.pathname === "/confirmation" ? "active" : ""}>
-              <Link to="/wizard/confirmation">Confirmation</Link>
-            </li>
-          </ul>
-        </nav>
-        <Route exact path="/wizard/delivery-info" component={DeliveryInfo} />
-        <Route path="/wizard/overview" component={Overview} />
-        <Route path="/wizard/confirmation" component={Confirmation} />
-      </>
-    );
+
+
+
+const Components = [<DeliveryInfo />, <Overview />, <Confirmation />];
+
+const { currentStep, steps } = stepState;
+
+
+
+const handleDeliveryInfo = (e) => {
+  console.log(e.target.closest('span').id)
+  updateStepState({currentStep: 0})
+  
 }
 
-return (
-    <div>
-        <h1>Form wizard</h1>
-
-        <Router>
-            <StepPages />
-        </Router>
-    </div>
-)
-  };
-
-export default Wizard; */
-
-
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  useLocation
-} from "react-router-dom";
-import DeliveryInfo from './deliveryInfo';
-import Overview from './overview';
-import Confirmation from './confirmation';
-
-const Wizard = () => {
-
-const StepPages = () => {
-    const location = useLocation();
-    return (
-      <>
-        <nav >
-          <ul >
-            <li className={location.pathname === "/delivery-info" ? "active" : ""}>
-              <Link to="/wizard/delivery-info">Delivery info</Link>
-            </li>
-            <li className={location.pathname === "/overview" ? "active" : ""}>
-              <Link to="/wizard/overview">Overview</Link>
-            </li>
-            <li className={location.pathname === "/confirmation" ? "active" : ""}>
-              <Link to="/wizard/confirmation">Confirmation</Link>
-            </li>
-          </ul>
-        </nav>
-        <Route exact path="/wizard/delivery-info" component={DeliveryInfo} />
-        <Route path="/wizard/overview" component={Overview} />
-        <Route path="/wizard/confirmation" component={Confirmation} />
-      </>
-    );
+const handleOverview = () => {
+  if(steps[0].completed) {
+    updateStepState({currentStep: 1})
+  } 
+  
 }
 
+const handleConfirmation = () => {
+  if(steps[0].completed)
+  updateStepState({currentStep: 2})
+} 
+
+
+
+console.log(stepState)
 
 return (
+  <div>
+  
+    <PathHeader 
+      handleDeliveryInfo={handleDeliveryInfo} 
+      handleOverview={handleOverview} 
+      handleConfirmation={handleConfirmation}
+    />
     <div>
-        <h1>Form wizard</h1>
-
-        <Router>
-            <StepPages />
-        </Router>
+      {Components[currentStep]}
     </div>
+    
+  </div>
+    
 )
-  };
+}
 
 export default Wizard;
+

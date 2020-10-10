@@ -6,13 +6,16 @@ import * as serviceWorker from './serviceWorker';
 import { FirebaseProvider } from './Firebase/FirebaseContext';
 import { UserProvider } from './Firebase/UserContext';
 import { StateContextProvider } from './StateContext';
+import { StepContextProvider } from './Pages/Wizard/wizardContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseProvider>
       <UserProvider>
         <StateContextProvider>
+          <StepContextProvider>
           <App />
+          </StepContextProvider>
         </StateContextProvider>
       </UserProvider>
     </FirebaseProvider>
