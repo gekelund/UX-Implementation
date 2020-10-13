@@ -4,7 +4,7 @@ import tw from "tailwind.macro";
 
 
 const PathStepStyling = styled.div.attrs({
-    className: "w-full h-64",
+    className: "w-full h-auto",
   })`
     & {
        

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 
 const FormStyling = styled.div.attrs({
-    className: "w-full h-screen flex flex-column mt-32 pb-32 justify-center",
+    className: "w-full h-screen flex flex-column justify-center",
   })`
     & {
         form {

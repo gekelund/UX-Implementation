@@ -3,11 +3,11 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 
 const TextAreaStyling = styled.div.attrs({
-    className: "w-auto h-auto ",
+    className: "w-full h-auto ",
   })`
     & {
         textarea {
-            ${tw` w-64 h-20 mb-2 shadow-inner resize-none rounded p-2`}
+            ${tw` w-full h-20 mb-2 shadow-inner resize-none rounded p-2`}
         }
         label {
             ${tw`w-full flex flex-col mb-2 mt-10 font-semibold text-lg items-start `}
@@ -20,13 +20,14 @@ const TextAreaStyling = styled.div.attrs({
   `;
 
 
-const TextArea = ({ name, form, placeholder, register, labelName,}) => {
+const TextArea = ({ name, form, placeholder, register, labelName, icon}) => {
 
     return (
     <TextAreaStyling>
         <label>
             <span>
                 {labelName}
+                {icon}
             </span>
             <textarea name={name} form={form} placeholder={placeholder} ref={register} />
         </label>

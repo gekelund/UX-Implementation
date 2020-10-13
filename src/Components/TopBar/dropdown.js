@@ -42,7 +42,7 @@ const Dropdown = ({soupeList, handleDelete}) => {
                         </tr>
                     {soupeList ? soupeList.map(soups => (
                         <tr id={soups.ref}> 
-                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 10)}...</i></h5> : ""} </td>
+                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
                             <td>{soups.pris}</td>
                             <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>
                         </tr>

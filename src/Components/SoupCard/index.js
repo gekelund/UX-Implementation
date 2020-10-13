@@ -7,7 +7,7 @@ import tw from "tailwind.macro";
 import { Link } from 'react-router-dom';
 
 const SoupCardStyles = styled.div.attrs({
-    className: "w-full h-auto flex flex-row flex-wrap items-center justify-center bg-gray-100",
+    className: "w-full h-auto flex flex-row flex-wrap items-center justify-center",
     
 })`
     & {

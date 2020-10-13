@@ -10,7 +10,7 @@ export const StateContextProvider = ({ children }) => {
     ref: 0,
     totalPris: 0,
     deliveryinfo: "",
-    deliveryTime: "",
+    deliveryTime: false,
     dateExpire: Date.now() + 7 * 24 * 60 * 60 * 1000,
   };
 
