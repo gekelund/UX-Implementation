@@ -13,7 +13,7 @@ const DropdownStyling = styled.div.attrs({
             ${tw`w-full h-full text-center bg-white`}
         }
         table {
-            ${tw`w-full border-collapse ml-4 mt-2 mb-2`}
+            ${tw`w-full md:w-maxDropdown border-collapse ml-4 mt-2 mb-2`}
         }
         th {
             ${tw`p-2 text-left border-b-2`}
@@ -21,6 +21,10 @@ const DropdownStyling = styled.div.attrs({
         td {
             ${tw`p-2 text-left`}
         }
+        h5 {
+            ${tw` text-left text-xs`}
+        }
+        
     }
   `;
 
@@ -30,20 +34,22 @@ const Dropdown = ({soupeList, handleDelete}) => {
         <DropdownStyling>
             <section>
                 <table>
-                    <tr>
-                        <th>Soppa</th>
-                        <th>Pris</th>
-                        <th>Ta bort</th>
-                    </tr>
-                {soupeList ? soupeList.map(soups => (
-                     <tr id={soups.ref}> 
-                        <td>{soups.soupe}</td>
-                        <td>{soups.pris}</td>
-                        <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>
-                    </tr>
-                )) : 
-                    ""
-                    } 
+                    <tbody>
+                        <tr>
+                            <th>Soppa</th>
+                            <th>Pris</th>
+                            <th>Ta bort</th>
+                        </tr>
+                    {soupeList ? soupeList.map(soups => (
+                        <tr id={soups.ref}> 
+                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 10)}...</i></h5> : ""} </td>
+                            <td>{soups.pris}</td>
+                            <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>
+                        </tr>
+                    )) : 
+                        ""
+                        } 
+                </tbody>
               </table>
             </section>
         </DropdownStyling>

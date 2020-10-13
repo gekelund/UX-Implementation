@@ -5,7 +5,7 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 import { soups } from '../../Components/SoupCard/Soups';
 import TopBar from '../../Components/TopBar';
-
+import { useHistory } from 'react-router-dom';
 
 const LandingStyling = styled.div.attrs({
     className: "w-full h-screen flex flex-column flex-wrap mt-32 pb-32 justify-center",
@@ -29,7 +29,7 @@ const LandingPage = () => {
 
     const { state, updateState } = useContext(StateContext);
     const { soupe, quantity, totalPris, ref } = state;
-    
+    const history = useHistory();
 
     useEffect(() => {
         let State = JSON.parse(localStorage.getItem("State"))
@@ -43,7 +43,7 @@ const LandingPage = () => {
     const handleButton = (e) => {
         soups.map(soup => {
            if(soup.title === e.target.closest("section").id){
-                updateState(soupe.push({soupe: soup.title, pris: soup.pris, ref: ref}));
+                updateState(soupe.push({soupe: soup.title, pris: soup.pris, ref: ref, special: null}));
                 updateState({quantity: quantity + 1});
                 updateState({ref: ref + 1})
                 updateState({totalPris: Number(totalPris) + Number(soup.pris)});
@@ -51,10 +51,6 @@ const LandingPage = () => {
         });
     }
    
-    const handlePic = (e) => {
-        console.log(e.target)
-        
-    }
    
    
 
@@ -73,7 +69,7 @@ const LandingPage = () => {
             <main>
             <h1>Upptäck våra läckra soppor</h1>
             <h3>Alla soppor kommer med bröd och vispat smör</h3>
-            <SoupCard onClickButton={handleButton} onClickPic={handlePic} /* onClickInfoIcon={handleInfo} */ />
+            <SoupCard onClickButton={handleButton} />
             </main>
         </LandingStyling>
     )

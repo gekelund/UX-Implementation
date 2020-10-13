@@ -36,6 +36,10 @@ module.exports = {
     },
     spacing: {
       px: '300px',
+      max: '500px',
+      min: '350px',
+      maxDropdown: '750px',
+      soupcardheight: '380px',
       '0': '0',
       '1': '0.25rem',
       '2': '0.5rem',
