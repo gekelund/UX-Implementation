@@ -12,10 +12,13 @@ const SoupCardStyles = styled.div.attrs({
 })`
     & {
         section {
-            ${tw`bg-white text-left shadow-lg m-6 p-6 w-64 h-auto flex-initial flex-col items-center justify-center rounded-md`}
+            ${tw`bg-white text-left shadow-lg m-6 p-6 w-64 h-soupcardheight flex-initial flex-col items-center justify-center rounded-md`}
         }
         div {
             ${tw`w-11/12 flex justify-between items-center border-solid border-b border-t-0 border-r-0 border-l-0 border-gray-600 `}
+        }
+        div#footer {
+            ${tw`w-11/12 flex justify-between items-center border-none`}
         }
         p {
             ${tw`text-gray-700 text-xs w-8/12 p-1`}
@@ -29,16 +32,19 @@ const SoupCardStyles = styled.div.attrs({
         button {
             ${tw`bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 border border-green-500 rounded`}
         }
+        img {
+            ${tw`mb-4`}
+        }
     }
   `;
 
-const SoupCard = ({onClickButton, onClickPic}) => {
+const SoupCard = ({onClickButton}) => {
 
     return (
         <SoupCardStyles>
             {soups.map((soup) => 
                 <section id={soup.id}>
-                  <h2 onClick={onClickPic}>{soup.image}</h2>
+                  <Link to={`/edit/${soup.id}`}><img src={soup.image} alt={soup.title} /></Link> 
                   <div>
                     <h2>{soup.title}</h2>
                     <Link style={{textDecoration: "none", color: "black"}} to={`/edit/${soup.id}`}><InfoOutlinedIcon /></Link>
@@ -47,7 +53,7 @@ const SoupCard = ({onClickButton, onClickPic}) => {
                     <p>{soup.infoText}</p>
                     <button onClick={onClickButton}>+1</button>
                   </div>
-                  <div style={{border: "none"}}>
+                  <div id="footer">
                       <h5><QueryBuilderOutlinedIcon /> 30min</h5>
                       <h5>Pris: {soup.pris} kr</h5>
                   </div>

@@ -10,19 +10,24 @@ const TextAreaStyling = styled.div.attrs({
             ${tw` w-64 h-20 mb-2 shadow-inner resize-none rounded p-2`}
         }
         label {
-            ${tw` flex flex-col mb-2 mt-10 font-semibold text-lg items-start `}
+            ${tw`w-full flex flex-col mb-2 mt-10 font-semibold text-lg items-start `}
+        }
+        span {
+            ${tw` flex w-full items-end justify-between pl-2 pb-4`}
         }
         
     }
   `;
 
 
-const TextArea = ({ name, form, placeholder, register, labelName }) => {
+const TextArea = ({ name, form, placeholder, register, labelName,}) => {
 
     return (
     <TextAreaStyling>
         <label>
-            {labelName}
+            <span>
+                {labelName}
+            </span>
             <textarea name={name} form={form} placeholder={placeholder} ref={register} />
         </label>
     </TextAreaStyling>

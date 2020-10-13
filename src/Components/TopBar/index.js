@@ -9,7 +9,7 @@ const TopBarStyling = styled.div.attrs({
   })`
     & {
         nav {
-            ${tw`w-full h-full flex items-end justify-between md:justify-start text-center pb-2 ml-4 mr-4`}
+            ${tw`w-full md:w-min h-full flex items-end justify-between md:mr-auto text-center pb-2 ml-4 mr-4`}
         }
         p {
             ${tw`font-sans font-semibold text-base text-gray-800 m-1`}
