@@ -18,6 +18,7 @@ import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import TimeSelect from '../../Components/RadioButton/timeSelect';
 
 const DeliveryInfoStyling = styled.div.attrs({
     className: "w-full h-screen flex justify-center",
@@ -40,11 +41,16 @@ const DeliveryInfoStyling = styled.div.attrs({
     }
   `;
 
+
+
+
   const SelectTimeStyling = styled.div.attrs({
-    className: "h-32 w-full flex flex-wrap justify-center items-center",
+    className: "h-auto w-full",
   })`
     & {
-       
+       div {
+           ${tw`w-max h-32 flex flex-row flex-wrap justify-center items-center`}
+       }
         
     }
   `;
@@ -72,11 +78,15 @@ const DeliveryInfo = () => {
         }
 
         const handleDatePicker = date => {
-            updateState({deliveryTime: date});
+            updateState({deliveryDate: date});
             setDate(date);
         } 
-
-       
+        
+        const handleTime = (e) => {
+            updateState({deliveryTime: e.target.value})
+            console.log(state)
+        }
+        console.log(state)
 
     return (
         <DeliveryInfoStyling>
@@ -96,7 +106,8 @@ const DeliveryInfo = () => {
                 <RadioButton type="radio" name="leveranstid" label="Snarast" value="snarast" onChange={onChange} />
                 <RadioButton type="radio" name="leveranstid" label="Upphämtning" value="pickup" onChange={onChange}/>
                 <RadioButton type="radio" name="leveranstid" label="Annat datum" value="datum" onChange={onChange} />
-                    
+
+                
                     <div style={open ? {display: "block"} : {display: "none"}}>
                         <p>Välj leveransdag/tid</p>
                         <DatePicker
@@ -106,19 +117,20 @@ const DeliveryInfo = () => {
                         />
                         {date ? 
                         <SelectTimeStyling>
-                            <label><input type="radio" name="tid" value="16:00"/>16:00</label>
-                            <label><input type="radio" name="tid" value="17:00"/>17:00</label>
-                            <label><input type="radio" name="tid" value="18:00"/>18:00</label>
-                            <label><input type="radio" name="tid" value="19:00"/>19:00</label>
-                            <label><input type="radio" name="tid" value="20:00"/>20:00</label>
-                            <label><input type="radio" name="tid" value="21:00"/>21:00</label>
-                          
+                            <div>
+                                <TimeSelect type="radio" onChange={handleTime} label="16:00" name="tid" value="16:00" />
+                                <TimeSelect type="radio" onChange={handleTime} label="17:00" name="tid" value="17:00" />
+                                <TimeSelect type="radio" onChange={handleTime} label="18:00" name="tid" value="18:00" />
+                                <TimeSelect type="radio" onChange={handleTime} label="19:00" name="tid" value="19:00" />
+                                <TimeSelect type="radio" onChange={handleTime} label="20:00" name="tid" value="20:00" />
+                                <TimeSelect type="radio" onChange={handleTime} label="21:00" name="tid" value="21:00" />
+                            </div>
                         </SelectTimeStyling>
                         :
                         ""
                     }
                     </div>
-                   
+               
                 <input id="submit" type="submit" value="Nästa" />
             </FormGroup>
             </main>
