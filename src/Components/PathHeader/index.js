@@ -14,7 +14,7 @@ const PathHeaderStyling = styled.div.attrs({
   })`
     & {
         nav {
-            ${tw`w-full h-full flex justify-between items-center bg-gray-100 ml-16 mr-16`}
+            ${tw`w-pathHeadMax h-full flex justify-between items-center ml-16 mr-16`}
         }
         div {
             ${tw`flex flex-col justify-center items-center`}

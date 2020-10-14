@@ -2,10 +2,9 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 
 const AppStyles = styled.div.attrs({
-  className: "w-full h-screen flex flex-col items-center justify-center bg-gray-100"
+  className: "w-full h-screen "
 })`
   & {
-
     h1 {
       ${tw`font-sans text-6xl font-hairline text-6xl text-teal-500`}
     }

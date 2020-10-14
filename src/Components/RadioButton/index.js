@@ -11,8 +11,12 @@ const RadioButtonStyling = styled.div.attrs({
         label {
             ${tw`flex items-center justify-between shadow-lg p-3 m-2 bg-gray-300 rounded-lg border-2`}
         }
-       
-         
+       input {
+           ${tw`appearance-none bg-white w-6 h-6 border-transparent`}
+       }
+       input:checked {
+        ${tw`appearance-none w-6 h-6 bg-green-600 border-transparent `}
+    }
     }
   `;
 
