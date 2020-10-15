@@ -35,8 +35,9 @@ const PathHeaderStyling = styled.div.attrs({
 const PathHeader = ({handleDeliveryInfo, handleOverview, handleConfirmation, handlePay}) => {
    const {stepState} = useContext(StepContext);
 
+
    const {steps} = stepState;
-console.log(steps)
+
     return (
         <PathHeaderStyling>
             <nav>

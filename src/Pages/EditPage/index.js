@@ -61,11 +61,12 @@ const EditPage = ({ match }) => {
     const { state, updateState } = useContext(StateContext);
     const { params } = match;
     const textareaRef = useRef(null);
-    const editSoups = soups.find(soup => soup.id === params.soupID);
     const {soupe, ref, quantity, totalPris} = state;
+    const editSoups = soups.find(soup => soup.id.search(params.soupID) );
     const [done, setDone] = useState(false);
     const history = useHistory();
 
+    console.log(params.soupID)
     useEffect(() => {
         let State = JSON.parse(localStorage.getItem("State"))
         updateState(State);
@@ -91,7 +92,10 @@ const EditPage = ({ match }) => {
         } else {
             updateState(findSoup.special = textareaRef.current.value);
         } */
-        const newSoup = soups.find(soup => soup.title === params.soupID);
+        if(soups.find(soup => soup.title+soup.ref === params.soupID)){
+            console.log(params.soupID)
+        }
+        const newSoup = soups.find(soup => soup.title+soup.ref === params.soupID);
             console.log(newSoup)
                 updateState(soupe.push({soupe: newSoup.title, pris: newSoup.pris, ref: ref, special: textareaRef.current.value}));
                 updateState({quantity: quantity + 1});
@@ -100,7 +104,7 @@ const EditPage = ({ match }) => {
             setDone(true);
     }
 
- console.log(state)
+
 
     return (
         <EditStyling>

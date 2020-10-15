@@ -1,15 +1,30 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect} from 'react';
 import {StepContext} from './wizardContext';
 import DeliveryInfo from './deliveryInfo';
 import Overview from './overview';
 import Confirmation from './confirmation';
 import PathHeader from '../../Components/PathHeader';
+import { StateContext } from '../../StateContext';
 
 
 const Wizard = () => {
 const { stepState , updateStepState} = useContext(StepContext);
+const { state, updateState } = useContext(StateContext);
 
+useEffect(() => {
+  let State = JSON.parse(localStorage.getItem("State"));
+  updateState(State);
 
+  let StepState = JSON.parse(localStorage.getItem("StepState"));
+  updateStepState(StepState);
+
+},[]);
+
+useEffect(() => {
+  localStorage.setItem('StepState', JSON.stringify(stepState));
+  localStorage.setItem('State', JSON.stringify(state));
+
+}, [stepState, state]);
 
 
 const Components = [<DeliveryInfo />, <Overview />, <Confirmation />];
@@ -36,9 +51,6 @@ const handleConfirmation = () => {
   updateStepState({currentStep: 2})
 } 
 
-
-
-console.log(stepState)
 
 return (
   <div>
