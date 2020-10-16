@@ -43,7 +43,7 @@ const LandingPage = () => {
     const handleButton = (e) => {
         soups.map(soup => {
            if(soup.title === e.target.closest("section").id){
-                updateState(soupe.push({soupe: soup.title, pris: soup.pris, ref: ref, special: false}));
+                updateState(soupe.push({soupe: soup.title, pris: soup.pris, ref: ref, special: ""}));
                 updateState({quantity: quantity + 1});
                 updateState({ref: ref + 1});
                 updateState({totalPris: Number(totalPris) + Number(soup.pris)});

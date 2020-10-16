@@ -12,7 +12,8 @@ const OverviewCardStyling = styled.div.attrs({
         table {
             ${tw`w-auto h-auto m-4 shadow-overviewCard rounded-md bg-white p-4 flex flex-col justify-center items-center`}
                 thead {
-                    ${tw`w-full pt-4`}
+                    ${tw`w-full pt-4 flex flex-col items-center font-semibold`}
+                    
                 }
                 tbody {
                     ${tw`w-full p-8`}
@@ -62,7 +63,10 @@ const OverviewCard = ({soups}) => {
     return (
         <OverviewCardStyling>
             <table>
-                <thead><ListAltOutlinedIcon style={{fontSize: 40}} /></thead>
+                <thead>
+                    <ListAltOutlinedIcon style={{fontSize: 40}} />
+                    Beställningöversikt
+                </thead>
                     <tbody>
                         <tr>
                             <th>Soppa</th>
@@ -83,7 +87,7 @@ const OverviewCard = ({soups}) => {
                         <tr id={soups.ref}> 
                             <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
                             <td>{AntalNormalSoups[soups.soupe]}</td>
-                            <td><EditOutlinedIcon /></td>
+                            <td><Link to={`/edit/${soups.soupe}${soups.ref}`}><EditOutlinedIcon /></Link></td>
                             {/* <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td> */}
                         </tr>
                     )) : 

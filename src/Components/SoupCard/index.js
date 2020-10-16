@@ -38,7 +38,7 @@ const SoupCardStyles = styled.div.attrs({
     }
   `;
 
-const SoupCard = ({onClickButton, stateSoup}) => {
+const SoupCard = ({onClickButton}) => {
 
     return (
         <SoupCardStyles>

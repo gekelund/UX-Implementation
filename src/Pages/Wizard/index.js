@@ -5,7 +5,7 @@ import Overview from './overview';
 import Confirmation from './confirmation';
 import PathHeader from '../../Components/PathHeader';
 import { StateContext } from '../../StateContext';
-
+import {useLocation} from 'react-router-dom';
 
 const Wizard = () => {
 const { stepState , updateStepState} = useContext(StepContext);
@@ -33,8 +33,7 @@ const { currentStep, steps } = stepState;
 
 
 
-const handleDeliveryInfo = (e) => {
-  console.log(e.target.closest('span').id)
+const handleDeliveryInfo = () => {
   updateStepState({currentStep: 0})
   
 }
@@ -46,11 +45,19 @@ const handleOverview = () => {
   
 }
 
+const handlePay = () => {
+  if(steps[1].completed) {
+    updateStepState({currentStep: 1})
+    
+  }
+}
+
 const handleConfirmation = () => {
-  if(steps[0].completed)
+  if(steps[3].completed)
   updateStepState({currentStep: 2})
 } 
 
+console.log(stepState)
 
 return (
   <div>
@@ -58,6 +65,7 @@ return (
     <PathHeader 
       handleDeliveryInfo={handleDeliveryInfo} 
       handleOverview={handleOverview} 
+      handlePay={handlePay}
       handleConfirmation={handleConfirmation}
     />
     <div>

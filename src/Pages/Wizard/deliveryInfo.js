@@ -1,5 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
-/* import { useHistory } from 'react-router-dom'; */
+import React, {useContext, useState} from 'react';
 import FormGroup from '../../Components/FormGroup';
 import Input from '../../Components/Inputs';
 import RadioButton from '../../Components/RadioButton';
@@ -59,9 +58,8 @@ const DeliveryInfo = () => {
         const { state, updateState } = useContext(StateContext);
         const { stepState , updateStepState} = useContext(StepContext);
         const { steps } = stepState;
-        const [date, setDate] = useState(false);
         const {deliveryinfo} = state;
-        
+        const [date, setDate] = useState(false);
 
         const onSubmit = (data, date) => {
             if(date) {
@@ -73,6 +71,7 @@ const DeliveryInfo = () => {
             updateStepState(steps[0].completed = true);
             updateStepState({currentStep: 1});
             updateStepState(steps[1].access = true);
+            updateStepState(steps[1].completed = true)
         }
       
         const onChange = (e) => {
@@ -83,6 +82,10 @@ const DeliveryInfo = () => {
         }
 
         const handleDatePicker = date => {
+            /* console.log(typeof date)
+            const stringDate = String(date)
+            const formatedDate = stringDate.substring(0, 10) */
+            
             updateState({deliveryinfo: {leveransdatum: date}})
             setDate(date);
         } 
@@ -92,6 +95,7 @@ const DeliveryInfo = () => {
             updateState({deliveryinfo: levTid})
         }
 
+        console.log(deliveryinfo)
 
     return (
         <DeliveryInfoStyling>

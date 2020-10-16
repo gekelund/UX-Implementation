@@ -14405,6 +14405,10 @@ video {
   box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
 }
 
+.shadow-overviewCard {
+  box-shadow: 10px 10px 15px grey;
+}
+
 .shadow-outline {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
@@ -14453,6 +14457,10 @@ video {
   box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
 }
 
+.hover\:shadow-overviewCard:hover {
+  box-shadow: 10px 10px 15px grey;
+}
+
 .hover\:shadow-outline:hover {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
@@ -14499,6 +14507,10 @@ video {
 
 .focus\:shadow-3xl:focus {
   box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+}
+
+.focus\:shadow-overviewCard:focus {
+  box-shadow: 10px 10px 15px grey;
 }
 
 .focus\:shadow-outline:focus {
@@ -33624,6 +33636,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .sm\:shadow-overviewCard {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .sm\:shadow-outline {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -33672,6 +33688,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .sm\:hover\:shadow-overviewCard:hover {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .sm\:hover\:shadow-outline:hover {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -33718,6 +33738,10 @@ video {
 
   .sm\:focus\:shadow-3xl:focus {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  .sm\:focus\:shadow-overviewCard:focus {
+    box-shadow: 10px 10px 15px grey;
   }
 
   .sm\:focus\:shadow-outline:focus {
@@ -52813,6 +52837,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .md\:shadow-overviewCard {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .md\:shadow-outline {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -52861,6 +52889,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .md\:hover\:shadow-overviewCard:hover {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .md\:hover\:shadow-outline:hover {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -52907,6 +52939,10 @@ video {
 
   .md\:focus\:shadow-3xl:focus {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  .md\:focus\:shadow-overviewCard:focus {
+    box-shadow: 10px 10px 15px grey;
   }
 
   .md\:focus\:shadow-outline:focus {
@@ -72002,6 +72038,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .lg\:shadow-overviewCard {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .lg\:shadow-outline {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -72050,6 +72090,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .lg\:hover\:shadow-overviewCard:hover {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .lg\:hover\:shadow-outline:hover {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -72096,6 +72140,10 @@ video {
 
   .lg\:focus\:shadow-3xl:focus {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  .lg\:focus\:shadow-overviewCard:focus {
+    box-shadow: 10px 10px 15px grey;
   }
 
   .lg\:focus\:shadow-outline:focus {
@@ -91191,6 +91239,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .xl\:shadow-overviewCard {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .xl\:shadow-outline {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -91239,6 +91291,10 @@ video {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
   }
 
+  .xl\:hover\:shadow-overviewCard:hover {
+    box-shadow: 10px 10px 15px grey;
+  }
+
   .xl\:hover\:shadow-outline:hover {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   }
@@ -91285,6 +91341,10 @@ video {
 
   .xl\:focus\:shadow-3xl:focus {
     box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  .xl\:focus\:shadow-overviewCard:focus {
+    box-shadow: 10px 10px 15px grey;
   }
 
   .xl\:focus\:shadow-outline:focus {
