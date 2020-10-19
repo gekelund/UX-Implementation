@@ -6,6 +6,7 @@ import tw from "tailwind.macro";
 import { soups } from '../../Components/SoupCard/Soups';
 import TopBar from '../../Components/TopBar';
 import { useHistory } from 'react-router-dom';
+import SignOutPage from '../../Components/SignOut';
 
 const LandingStyling = styled.div.attrs({
     className: "w-full h-screen flex flex-column flex-wrap mt-32 pb-32 justify-center",
@@ -71,6 +72,7 @@ const LandingPage = () => {
                 <h3>Alla soppor kommer med bröd och vispat smör</h3>
                 <SoupCard onClickButton={handleButton} stateSoup={ref}/>
             </main>
+            <SignOutPage />
         </LandingStyling>
     )
 }

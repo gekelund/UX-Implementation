@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import FormGroup from '../../Components/FormGroup';
 import Input from '../../Components/Inputs';
 import RadioButton from '../../Components/RadioButton';
@@ -61,6 +61,10 @@ const DeliveryInfo = () => {
         const {deliveryinfo} = state;
         const [date, setDate] = useState(false);
 
+        useEffect(() => {
+            window.scrollTo(0, 0)
+        }, [])
+
         const onSubmit = (data, date) => {
             if(date) {
                 let totData = Object.assign(deliveryinfo, data);
@@ -82,10 +86,6 @@ const DeliveryInfo = () => {
         }
 
         const handleDatePicker = date => {
-            /* console.log(typeof date)
-            const stringDate = String(date)
-            const formatedDate = stringDate.substring(0, 10) */
-            
             updateState({deliveryinfo: {leveransdatum: date}})
             setDate(date);
         } 

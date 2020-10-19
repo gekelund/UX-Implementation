@@ -5,6 +5,7 @@ export const StateContext = createContext(null);
 
 export const StateContextProvider = ({ children }) => {
   const initialState = {
+    orderId: false,
     soupe: [],
     quantity: 0,
     ref: 0,

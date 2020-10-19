@@ -7,16 +7,15 @@ export const UserProvider = ({ children }) => {
   const firebase = useContext(FirebaseContext);
   const [user, setUser] = useState(null);
 
-  console.log(firebase)
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
       if (!authUser) {
         setUser(null);
         return;
-      }
+      } else return setUser(authUser);
 
-      const dbUser = firebase.firestore().doc(`users/${authUser.uid}`);
+     /*  const dbUser = firebase.firestore().doc(`users/${authUser.uid}`);
 
       dbUser.get().then((doc) => {
         if (!doc.exists) {
@@ -26,7 +25,7 @@ export const UserProvider = ({ children }) => {
         dbUser.onSnapshot((snapshot) =>
           setUser({ ...authUser, ...snapshot.data() })
         );
-      });
+      }); */
     });
 
     return () => unsubscribe();

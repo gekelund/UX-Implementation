@@ -86,7 +86,7 @@ const EditPage = ({ match }) => {
     }, [state, addNew, updateSoup, history])
     
     const handleOrder = () => {
- 
+        
         
         if(findSoup) {
             console.log(findSoup)

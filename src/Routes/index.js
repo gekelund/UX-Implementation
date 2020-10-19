@@ -4,6 +4,7 @@ import BottomNav from '../Components/BottomNav';
 import EditPage from '../Pages/EditPage';
 
 import LandingPage from '../Pages/LandingPage';
+/* import SelectOrder from '../Pages/SelectOrder'; */
 import SignInPage from '../Pages/SignInPage';
 import Wizard from '../Pages/Wizard';
 
@@ -12,11 +13,12 @@ export const LANDING = '/';
 export const SIGN_IN = '/signin';
 export const WIZARD = '/wizard';
 export const EDIT = '/edit/:soupID';
-
+/* export const SELECT_ORDER = '/selectorder' */
 
 const Routes = () => (
     <Router>
         <Switch>
+            {/* <Route path={SELECT_ORDER} component={SelectOrder} /> */}
             <Route exact path={LANDING} component={LandingPage} />
             <Route path={SIGN_IN} component={SignInPage} />
             <Route path={WIZARD} component={Wizard} />
