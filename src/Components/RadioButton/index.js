@@ -20,12 +20,14 @@ const RadioButtonStyling = styled.div.attrs({
     }
   `;
 
-const RadioButton = ({ value, name, register, label, onChange, defaultValue, type }) => {
+const RadioButton = ({ value, name, register, label, onChange, type, defaultChecked }) => {
+    
+   
 
     return (
     <RadioButtonStyling>
         <label> {label}
-            <input type={type} onChange={onChange} defaultValue={defaultValue} value={value} name={name} ref={register} /> 
+            <input type={type} onChange={onChange} defaultChecked={defaultChecked} value={value} name={name} ref={register} /> 
         </label>
     </RadioButtonStyling>
     )

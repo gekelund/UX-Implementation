@@ -13,13 +13,13 @@ const DropdownStyling = styled.div.attrs({
             ${tw`w-full h-full text-center bg-white`}
         }
         table {
-            ${tw`w-full md:w-maxDropdown border-collapse ml-4 mt-2 mb-2`}
+            ${tw`w-full md:w-maxDropdown border-collapse ml-4 mt-2 mb-2 `}
         }
         th {
-            ${tw`p-2 text-left border-b-2`}
+            ${tw` p-2 text-left border-b-2`}
         }
         td {
-            ${tw`p-2 text-left`}
+            ${tw` p-2 text-left`}
         }
         h5 {
             ${tw` text-left text-xs`}
@@ -29,6 +29,30 @@ const DropdownStyling = styled.div.attrs({
   `;
 
 const Dropdown = ({soupeList, handleDelete}) => {
+
+    const antalNormal = soupeList.filter(soup => soup.soupe && !soup.special);
+    const antalSpecial = soupeList.filter(soup => soup.soupe && soup.special);
+    
+    const normalSoups = antalNormal.map(soup => soup.soupe);
+    const specialSoupe = antalSpecial.map(soup => soup.soupe);
+
+    const AntalNormalSoups = {};
+    const AntalSpecialSoups = {};
+
+    const AntalFunction = (listSoups, listAntal) => {
+       return listSoups.forEach(function(i) { listAntal[i] = (listAntal[i]||0) + 1;});
+    } 
+   
+    AntalFunction(normalSoups, AntalNormalSoups);
+    AntalFunction(specialSoupe, AntalSpecialSoups);
+
+    console.log("Normal", antalNormal, "special", antalSpecial)
+
+    const filteredNormalSoups = soupeList.filter((item, index) => normalSoups.indexOf(item.soupe) === index);
+    
+    const filteredSpecialSoups = soupeList.filter((item) => item.special)
+    console.log(filteredSpecialSoups)
+    
     
     return (
         <DropdownStyling>
@@ -37,18 +61,30 @@ const Dropdown = ({soupeList, handleDelete}) => {
                     <tbody>
                         <tr>
                             <th>Soppa</th>
+                            <th>Antal</th>
                             <th>Pris</th>
                             <th>Ta bort</th>
                         </tr>
-                    {soupeList ? soupeList.map(soups => (
+                    {filteredSpecialSoups ? filteredSpecialSoups.map(soups => (
                         <tr id={soups.ref}> 
                             <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
-                            <td>{soups.pris}</td>
+                            <td>{AntalSpecialSoups[soups.soupe]}</td>
+                            <td key="pris">{soups.pris}</td>
+                            <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>
+                        </tr>
+                    )) : 
+                        ""}   
+                    {filteredNormalSoups ? filteredNormalSoups.map(soups => (
+                        <tr id={soups.ref}> 
+                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
+                            <td>{AntalNormalSoups[soups.soupe]}</td>
+                            <td key="pris">{soups.pris}</td>
                             <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>
                         </tr>
                     )) : 
                         ""
-                        } 
+                        }
+                        
                 </tbody>
               </table>
             </section>

@@ -25,7 +25,6 @@ const PathHeaderStyling = styled.div.attrs({
         span {
             ${tw`w-12 h-12 mb-1 bg-gray-400 rounded-full flex justify-center text-white items-center`}
         }
-         
     }
   `;
 
@@ -35,18 +34,19 @@ const PathHeaderStyling = styled.div.attrs({
 const PathHeader = ({handleDeliveryInfo, handleOverview, handleConfirmation, handlePay}) => {
    const {stepState} = useContext(StepContext);
 
+
    const {steps} = stepState;
-console.log(steps)
+
     return (
         <PathHeaderStyling>
             <nav>
-                <PathStep style={steps[0].access ? {backgroundColor: "green"} : {}} id={0} onClick={handleDeliveryInfo} icon={<EmailOutlinedIcon />} stepLabel="Leveransinfo" />
+                <PathStep style={steps[0].access || steps[0].completed ? {backgroundColor: "green"} : {}} id={0} onClick={handleDeliveryInfo} icon={<EmailOutlinedIcon />} stepLabel="Leveransinfo" />
                 <RemoveOutlinedIcon />
-                <PathStep style={steps[1].access ? {backgroundColor: "green"} : {}} id={1} onClick={handleOverview} icon={<ListOutlinedIcon />} stepLabel="Orderöversikt" />
+                <PathStep style={steps[1].access || steps[1].completed ? {backgroundColor: "green"} : {}} id={1} onClick={handleOverview} icon={<ListOutlinedIcon />} stepLabel="Orderöversikt" />
                 <RemoveOutlinedIcon />
-                <PathStep style={steps[2].access ? {backgroundColor: "green"} : {}} id={2} onClick={handlePay} icon={<PaymentOutlinedIcon />} stepLabel="Betalning" />
+                <PathStep style={steps[2].access || steps[2].completed ? {backgroundColor: "green"} : {}} id={2} onClick={handlePay} icon={<PaymentOutlinedIcon />} stepLabel="Betalning" />
                 <RemoveOutlinedIcon />
-                <PathStep style={steps[3].access ? {backgroundColor: "green"} : {}} id={3} onClick={handleConfirmation} icon={<CheckCircleOutlineOutlinedIcon />} stepLabel="Bekräftelse" />
+                <PathStep style={steps[3].access || steps[3].completed ? {backgroundColor: "green"} : {}} id={3} onClick={handleConfirmation} icon={<CheckCircleOutlineOutlinedIcon />} stepLabel="Bekräftelse" />
             </nav>
         </PathHeaderStyling>
     )

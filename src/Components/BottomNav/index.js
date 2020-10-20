@@ -3,11 +3,11 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
 import RestaurantMenuOutlinedIcon from '@material-ui/icons/RestaurantMenuOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 import { StateContext } from '../../StateContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { FirebaseContext } from '../../Firebase/FirebaseContext';
-
+import { UserContext } from '../../Firebase/UserContext';
 
 const BottomNavStyle = styled.div.attrs({
     className: "w-full h-16 fixed bottom-0 left-0 right-0 bg-green-400",
@@ -29,22 +29,14 @@ const BottomNavStyle = styled.div.attrs({
   `;
 
 
-const BottomNav = () => {
+const BottomNav = ( ) => {
     const firebase = useContext(FirebaseContext);
-
+    const user = useContext(UserContext);
     const { state } = useContext(StateContext);
-    const { quantity } = state
+    const { quantity } = state;
+    const location = useLocation();
 
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          console.log(user)
-        } else {
-          console.log("not signed in")
-        }
-      });
 
-    
     return (
         <BottomNavStyle>
             
@@ -55,7 +47,10 @@ const BottomNav = () => {
                         <p>Support</p>
                     </Link>
                 </div>
-                {quantity && quantity > 0 ? <button><Link style={{color: "white", textDecoration: "none"}} to="/signin"> <ShoppingCartOutlinedIcon /> Gå till kassa</Link></button> : ""}
+                {quantity && quantity > 0 && location.patname !== "/wizard" ? 
+                    <button><Link style={{color: "white", textDecoration: "none"}} to={user ? "/wizard" : "/signin"}> <ShoppingCartOutlinedIcon /> Gå till kassa</Link></button>
+                    : ""
+                    }
                 <div>
                     <Link style={{textDecoration: "none"}} to="/">
                         <RestaurantMenuOutlinedIcon style={{fontSize: "35", color: "white"}} />

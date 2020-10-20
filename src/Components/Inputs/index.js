@@ -27,6 +27,8 @@ const Input = ({
    name, 
    icon,
    groupIcon,
+   value,
+   defaultValue,
    ...rest
 }) => {
 
@@ -37,6 +39,8 @@ const Input = ({
                 <input 
                     name={name}
                     ref={register}
+                    value={value}
+                    defaultValue={defaultValue}
                     {...rest} 
                 />
             </label>

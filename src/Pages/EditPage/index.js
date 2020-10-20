@@ -61,46 +61,48 @@ const EditPage = ({ match }) => {
     const { state, updateState } = useContext(StateContext);
     const { params } = match;
     const textareaRef = useRef(null);
-    const editSoups = soups.find(soup => soup.id === params.soupID);
     const {soupe, ref, quantity, totalPris} = state;
-    const [done, setDone] = useState(false);
+    const editSoups = soups.find(soup => params.soupID.includes(soup.id));
+    const [addNew, setAddNew] = useState(false);
+    const [updateSoup, setUpdateSoup] = useState(false);
     const history = useHistory();
+    const findSoup = params.soupID.match((/\d+/)) !== null && params.soupID.match((/\d+/)[0]) ? soupe.find(soup => soup.ref === Number(params.soupID.match(/\d+/)[0])) : false;
+  
 
     useEffect(() => {
         let State = JSON.parse(localStorage.getItem("State"))
-        updateState(State);
+            updateState(State);
+        
     },[])
 
     useEffect(() => {
         localStorage.setItem('State', JSON.stringify(state));
-        if(done) {
+        if(addNew) {
             history.push('/')
         }
-    }, [state, done, history])
+        if(updateSoup) {
+            history.push('/wizard')
+        }
+    }, [state, addNew, updateSoup, history])
     
     const handleOrder = () => {
-       /*  const findSoup = state.soupe.find(soup => soup.soupe === params.soupID)
-        if(!findSoup) {
-            const newSoup = soups.find(soup => soup.title === params.soupID);
-            console.log(newSoup)
-                updateState(soupe.push({soupe: newSoup.title, pris: newSoup.pris, ref: ref, special: textareaRef.current.value}));
-                updateState({quantity: quantity + 1});
-                updateState({ref: ref + 1})
-                updateState({totalPris: Number(totalPris) + Number(newSoup.pris)});
-                
+        
+        
+        if(findSoup) {
+            console.log(findSoup)
+            updateState(findSoup.special = textareaRef.current.value)
+            setUpdateSoup(true);
         } else {
-            updateState(findSoup.special = textareaRef.current.value);
-        } */
         const newSoup = soups.find(soup => soup.title === params.soupID);
-            console.log(newSoup)
                 updateState(soupe.push({soupe: newSoup.title, pris: newSoup.pris, ref: ref, special: textareaRef.current.value}));
                 updateState({quantity: quantity + 1});
                 updateState({ref: ref + 1})
                 updateState({totalPris: Number(totalPris) + Number(newSoup.pris)});
-            setDone(true);
+            setAddNew(true);
     }
+}
 
- console.log(state)
+
 
     return (
         <EditStyling>
@@ -155,9 +157,9 @@ const EditPage = ({ match }) => {
                         Meddela köket
                         <ErrorOutlineIcon style={{fontSize: 30}} />
                     </label>
-                    <textarea ref={textareaRef} name="special" placeholder="T.ex Allergisk mot nötter" />
+                    <textarea defaultValue={findSoup ? findSoup.special : ""} ref={textareaRef} name="special" placeholder="T.ex Allergisk mot nötter" />
                 </div>
-                <button onClick={handleOrder}>Lägg till</button>
+                <button onClick={handleOrder}>{findSoup ? 'Uppdatera' : 'Lägg till'}</button>
             </footer>
         </EditStyling>
     )
