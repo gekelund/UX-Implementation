@@ -4,6 +4,7 @@ import tw from "tailwind.macro";
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
 import {Link} from 'react-router-dom';
+import {FilterdSoups} from '../../Utilities';
 
 const OverviewCardStyling = styled.div.attrs({
     className: "w-full h-screen",
@@ -36,30 +37,8 @@ const OverviewCardStyling = styled.div.attrs({
 
 const OverviewCard = ({soups}) => {
     
-
-    const antalNormal = soups.filter(soup => soup.soupe && !soup.special);
-    const antalSpecial = soups.filter(soup => soup.soupe && soup.special);
+    const antal = FilterdSoups(soups)
     
-    const normalSoups = antalNormal.map(soup => soup.soupe);
-    const specialSoupe = antalSpecial.map(soup => soup.soupe);
-
-    const AntalNormalSoups = {};
-    const AntalSpecialSoups = {};
-
-    const AntalFunction = (listSoups, listAntal) => {
-       return listSoups.forEach(function(i) { listAntal[i] = (listAntal[i]||0) + 1;});
-    } 
-   
-    AntalFunction(normalSoups, AntalNormalSoups);
-    AntalFunction(specialSoupe, AntalSpecialSoups);
-
-    console.log("Normal", antalNormal, "special", antalSpecial)
-
-    const filteredNormalSoups = soups.filter((item, index) => normalSoups.indexOf(item.soupe) === index);
-    
-    const filteredSpecialSoups = soups.filter((item) => item.special)
-    console.log(filteredSpecialSoups)
-
     return (
         <OverviewCardStyling>
             <table>
@@ -74,19 +53,19 @@ const OverviewCard = ({soups}) => {
                             <th>Ändra</th>
                             
                         </tr>
-                    {filteredSpecialSoups ? filteredSpecialSoups.map(soups => (
+                    {antal.filteredSpecialSoups ? antal.filteredSpecialSoups.map(soups => (
                         <tr id={soups.ref}> 
                             <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
-                            <td>{AntalSpecialSoups[soups.soupe]}</td>
+                            <td>{antal.AntalSpecialSoups[soups.soupe]}</td>
                             <td><Link to={`/edit/${soups.soupe}${soups.ref}`}><EditOutlinedIcon /></Link></td>
                             {/* <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td> */}
                         </tr>
                     )) : 
                         ""}   
-                    {filteredNormalSoups ? filteredNormalSoups.map(soups => (
+                    {antal.filteredNormalSoups ? antal.filteredNormalSoups.map(soups => (
                         <tr id={soups.ref}> 
                             <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
-                            <td>{AntalNormalSoups[soups.soupe]}</td>
+                            <td>{antal.AntalNormalSoups[soups.soupe]}</td>
                             <td><Link to={`/edit/${soups.soupe}${soups.ref}`}><EditOutlinedIcon /></Link></td>
                             {/* <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td> */}
                         </tr>

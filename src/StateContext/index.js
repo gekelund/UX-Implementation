@@ -11,7 +11,7 @@ export const StateContextProvider = ({ children }) => {
     ref: 0,
     totalPris: 0,
     deliveryinfo: {},
-    dateExpire: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    dateCreate: Date.now() + 7 * 24 * 60 * 60 * 1000,
   };
 
   const reducer = (currentState, newState) => ({ ...currentState, ...newState });

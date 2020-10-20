@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import SoupCard from '../../Components/SoupCard';
 import { StateContext } from '../../StateContext';
+import {StepContext} from '../Wizard/wizardContext';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import { soups } from '../../Components/SoupCard/Soups';
@@ -27,19 +28,23 @@ const LandingStyling = styled.div.attrs({
   
 
 const LandingPage = () => {
-
+    const {stepState} = useContext(StepContext);
     const { state, updateState } = useContext(StateContext);
     const { soupe, quantity, totalPris, ref } = state;
-    
-
+    const {currentStep} = stepState;
+    console.log(currentStep)
     useEffect(() => {
-        let State = JSON.parse(localStorage.getItem("State"))
-        updateState(State);
+       
+            let State = JSON.parse(localStorage.getItem("State"))
+            updateState(State);
+        
     },[])
 
     useEffect(() => {
-        localStorage.setItem('State', JSON.stringify(state));
-    }, [state])
+        if(currentStep !==2) {
+            localStorage.setItem('State', JSON.stringify(state));
+        } else window.location.reload();
+    }, [state, currentStep])
 
     const handleButton = (e) => {
         soups.map(soup => {

@@ -8,7 +8,7 @@ import DeliveryOverviewCard from '../../Components/DeliveryOverview';
 import PaymentCard from '../../Components/PaymentCard';
 import {UserContext} from '../../Firebase/UserContext';
 import {FirebaseContext} from '../../Firebase/FirebaseContext';
-/* import { Update } from '@material-ui/icons'; */
+
 
 
 const OverviewStyling = styled.div.attrs({
@@ -43,7 +43,7 @@ const Overview = () => {
     const firebase = useContext(FirebaseContext);
     const { deliveryinfo, soupe } = state;
     const { stepState , updateStepState} = useContext(StepContext);
-    const {steps, currentStep, orderId} = stepState;
+    const {steps} = stepState;
     
     const Scrolling = () => {
         let target = document.querySelector('#payment');
@@ -51,7 +51,6 @@ const Overview = () => {
             console.log(window.pageYOffset)
             if(window.pageYOffset * 3 >= target.getBoundingClientRect().top) {
                 updateStepState(steps[2].access = true);
-                window.location.reload();
             }
         }
     }
@@ -83,7 +82,7 @@ const Overview = () => {
         let userId = user?.uid;
         const db = firebase.firestore();
         let docRef = db.collection("users").doc(userId);
-
+        console.log(userId)
             docRef.get().then(async function(doc) {
                 
                 if (doc.exists) {
@@ -107,7 +106,7 @@ const Overview = () => {
                 console.log("Error getting document:", error);
             });
         
-        
+            
       }
 
       const handleMastercard = () => {

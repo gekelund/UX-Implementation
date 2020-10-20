@@ -6,12 +6,16 @@ import Confirmation from './confirmation';
 import PathHeader from '../../Components/PathHeader';
 import { StateContext } from '../../StateContext';
 import {UserContext} from '../../Firebase/UserContext';
+import {FirebaseContext} from '../../Firebase/FirebaseContext';
 
 const Wizard = () => {
 const { stepState , updateStepState} = useContext(StepContext);
 const { state, updateState } = useContext(StateContext);
 const user = useContext(UserContext);
+const firebase = useContext(FirebaseContext);
+const {orderId} = state;
 
+console.log(orderId)
 useEffect(() => {
   if(!user){ return;}
 }, [user]);
@@ -27,18 +31,20 @@ useEffect(() => {
   
 },[]);
 
-useEffect(() => {
+useEffect( () => {
   localStorage.setItem('StepState', JSON.stringify(stepState));
   localStorage.setItem('State', JSON.stringify(state));
+
+  if(currentStep === 2) {
+    localStorage.clear();
+    return;
+  }
 
 }, [stepState, state]);
 
 
 
-
 const { currentStep, steps } = stepState;
-
-
 
 const handleDeliveryInfo = () => {
   if(steps[0].access) {
