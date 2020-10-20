@@ -8,8 +8,9 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { useHistory } from 'react-router-dom';
 
+
 const EditStyling = styled.div.attrs({
-    className: "w-full h-screen flex flex-col mt-32 pb-32 items-center justify-center items-center bg-gray-100",
+    className: "w-full h-screen flex flex-col pb-32 items-center justify-center items-center bg-gray-100",
   })`
     & {
         header {
@@ -106,7 +107,6 @@ const EditPage = ({ match }) => {
 
     return (
         <EditStyling>
-           
             <header>
                 <img src={editSoups.image} alt={editSoups.title} />
                 <h1>{editSoups.title}</h1>

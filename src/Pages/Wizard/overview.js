@@ -82,23 +82,18 @@ const Overview = () => {
         
         let userId = user?.uid;
         const db = firebase.firestore();
-        console.log(userId)
-
-        var docRef = db.collection("users").doc(userId);
+        let docRef = db.collection("users").doc(userId);
 
             docRef.get().then(async function(doc) {
                 
                 if (doc.exists) {
-                   
-                        const { id } = await db.collection('orders').add(state);
-                        updateState({orderId: id});
-                  
-                        await db.doc(`users/${userId}`).update({
-                        orders: firebase.firestore.FieldValue.arrayUnion(id),
+                    const { id } = await db.collection('orders').add(state);
+                    updateState({orderId: id});
+                
+                    await db.doc(`users/${userId}`).update({
+                    orders: firebase.firestore.FieldValue.arrayUnion(id),
                     });
                 } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
                     const { id } = await db.collection('orders').add(state);
                     updateState({orderId: id});
            
@@ -110,7 +105,6 @@ const Overview = () => {
            
             }).catch(function(error) {
                 console.log("Error getting document:", error);
-            
             });
         
         

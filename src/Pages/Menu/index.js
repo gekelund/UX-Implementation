@@ -5,10 +5,10 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 import { soups } from '../../Components/SoupCard/Soups';
 import TopBar from '../../Components/TopBar';
+import { useHistory } from 'react-router-dom';
 import SignOutPage from '../../Components/SignOut';
 
-
-const LandingStyling = styled.div.attrs({
+const MenuStyling = styled.div.attrs({
     className: "w-full h-screen flex flex-column flex-wrap mt-32 pb-32 justify-center",
   })`
     & {
@@ -24,22 +24,14 @@ const LandingStyling = styled.div.attrs({
     }
   `;
 
-  
+ 
 
-const LandingPage = () => {
+const Menu = () => {
 
     const { state, updateState } = useContext(StateContext);
     const { soupe, quantity, totalPris, ref } = state;
-    
+   
 
-    useEffect(() => {
-        let State = JSON.parse(localStorage.getItem("State"))
-        updateState(State);
-    },[])
-
-    useEffect(() => {
-        localStorage.setItem('State', JSON.stringify(state));
-    }, [state])
 
     const handleButton = (e) => {
         soups.map(soup => {
@@ -52,33 +44,19 @@ const LandingPage = () => {
         });
     }
    
+   
 
-   const handleDelete = (e) => {
-        const newSoupe = soupe.filter( soup => Number(soup.ref) !== Number(e.target.closest('tr').id))
-        updateState({soupe: newSoupe});
-        updateState({quantity: quantity - 1})
-        updateState({totalPris: totalPris - Number(e.target.closest('tr').childNodes[2].innerHTML)})
-   }
-  
-const Menu = () => {
 
     return (
-        <main>
-        <h1>Upptäck våra läckra soppor</h1>
-        <h3>Alla soppor kommer med bröd och vispat smör</h3>
-        <SoupCard onClickButton={handleButton} stateSoup={ref}/>
-    </main>
-    )
-}
-
-    return (
-        
-        <LandingStyling>
-            <TopBar number={quantity} totalpris={totalPris} soupeList={soupe} handleDelete={handleDelete} />
-          <Menu />
+        <MenuStyling>
+            <main>
+                <h1>Upptäck våra läckra soppor</h1>
+                <h3>Alla soppor kommer med bröd och vispat smör</h3>
+                <SoupCard onClickButton={handleButton} stateSoup={ref}/>
+            </main>
             <SignOutPage />
-        </LandingStyling>
+        </MenuStyling>
     )
 }
 
-export default LandingPage;
+export default Menu;
