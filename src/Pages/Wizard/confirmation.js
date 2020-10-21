@@ -23,25 +23,25 @@ const Confirmation = () => {
     const {orderId} = state;
     const [data, setData] = useState(false);
     const SoppAntal = data ? FilterdSoups(data.soupe) : "";
-    console.log(SoppAntal);
+   
 
+    const getdoc = async () => {
+        const db = firebase.firestore();
+        let docRef = await db.collection("orders").doc(`${orderId}`);
+        docRef.get().then(function(doc) {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                setData(doc.data())
+                updateState({completed: true})
+            } else {
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+    }
+  
     useEffect(() => {
-       
-        const getdoc = async () => {
-              const db = firebase.firestore();
-              var docRef = await db.collection("orders").doc(`${orderId}`);
-          
-              docRef.get().then(function(doc) {
-                  if (doc.exists) {
-                      console.log("Document data:", doc.data());
-                      setData(doc.data())
-                  } else {
-                      console.log("No such document!");
-                  }
-              }).catch(function(error) {
-                  console.log("Error getting document:", error);
-              });
-          }
           getdoc()
     }, [])
 
@@ -56,8 +56,8 @@ const Confirmation = () => {
                <ReceiptCard 
                     adress={data.deliveryinfo.Adress} 
                     ort={data.deliveryinfo.Ort} 
-                    datum={data.deliveryinfo.date ? data.deliveryinfo.date : data.deliveryinfo.leveranstyp} 
-                    tid={data.deliveryinfo.tid ? data.deliveryinfo.tid : "ingen tid satt"} 
+                    datum={data.deliveryinfo.leveransdatum ? data.deliveryinfo.leveransdatum.toString().substring(0, 10) : data.deliveryinfo.leveranstyp} 
+                    tid={data.deliveryinfo.leveranstid ? data.deliveryinfo.leveranstid : "ingen tid satt"} 
                     leveransMeddelande={data.deliveryinfo.leveransmeddelande} 
                     soppor={data.soupe.soupe} 
                     antal={SoppAntal} 

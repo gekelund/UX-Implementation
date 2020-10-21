@@ -5,24 +5,19 @@ import Overview from './overview';
 import Confirmation from './confirmation';
 import PathHeader from '../../Components/PathHeader';
 import { StateContext } from '../../StateContext';
-import {UserContext} from '../../Firebase/UserContext';
-import {FirebaseContext} from '../../Firebase/FirebaseContext';
+import { StepContextProvider } from './wizardContext';
 
 const Wizard = () => {
+
+const WizardSteps = () => {
 const { stepState , updateStepState} = useContext(StepContext);
 const { state, updateState } = useContext(StateContext);
-const user = useContext(UserContext);
-const firebase = useContext(FirebaseContext);
-const {orderId} = state;
+const { currentStep, steps } = stepState;
 
-console.log(orderId)
-useEffect(() => {
-  if(!user){ return;}
-}, [user]);
 
 useEffect(() => {  
-  let State = JSON.parse(localStorage.getItem("State"));
-  updateState(State);
+  let wizardState = JSON.parse(localStorage.getItem("wizardState"));
+  updateState(wizardState);
 
   let StepState = JSON.parse(localStorage.getItem("StepState"));
   updateStepState(StepState);
@@ -33,18 +28,12 @@ useEffect(() => {
 
 useEffect( () => {
   localStorage.setItem('StepState', JSON.stringify(stepState));
-  localStorage.setItem('State', JSON.stringify(state));
+  localStorage.setItem('wizardState', JSON.stringify(state));
 
-  if(currentStep === 2) {
-    localStorage.clear();
-    return;
-  }
 
 }, [stepState, state]);
 
 
-
-const { currentStep, steps } = stepState;
 
 const handleDeliveryInfo = () => {
   if(steps[0].access) {
@@ -73,12 +62,11 @@ const handleConfirmation = () => {
   updateStepState({currentStep: 2})
 } 
 
-
-
 console.log(stepState)
 const Components = [<DeliveryInfo />, <Overview />,  <Confirmation />];
-return (
-  <div>
+  
+  return (
+    <div>
     <PathHeader 
       handleDeliveryInfo={handleDeliveryInfo} 
       handleOverview={handleOverview} 
@@ -87,8 +75,15 @@ return (
     />
  
      <div>{Components[currentStep]}</div>
-  </div>
-    
+    </div>
+  )
+}
+
+
+return (
+  <StepContextProvider>
+    <WizardSteps />
+  </StepContextProvider>
 )
 }
 

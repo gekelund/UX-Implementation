@@ -3,7 +3,7 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
 import RestaurantMenuOutlinedIcon from '@material-ui/icons/RestaurantMenuOutlined';
-import { Link, useLocation} from 'react-router-dom';
+import { Link, useLocation, useHistory} from 'react-router-dom';
 import { StateContext } from '../../StateContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { FirebaseContext } from '../../Firebase/FirebaseContext';
@@ -32,10 +32,31 @@ const BottomNavStyle = styled.div.attrs({
 const BottomNav = ( ) => {
     const firebase = useContext(FirebaseContext);
     const user = useContext(UserContext);
-    const { state } = useContext(StateContext);
+    const { state, updateState } = useContext(StateContext);
     const { quantity } = state;
     const location = useLocation();
+    const history = useHistory();
+    const {orderId} = state;
 
+    const handleToPay = () => {
+        if(user && !orderId) {
+        const createOrder = async () => {
+            let userId = user?.uid;
+            const db = firebase.firestore();
+                const { id } = await db.collection('orders').add(state);
+                updateState({orderId: id});
+                await db.doc(`users/${userId}`).update({
+                orders: firebase.firestore.FieldValue.arrayUnion(id),
+            });
+             history.push(`/wizard/${id}`);
+        }
+        createOrder();
+    } else if (user && orderId){
+        history.push(`/wizard/${orderId}`)
+    } else history.push("/signin")
+
+    }
+   
 
     return (
         <BottomNavStyle>
@@ -48,7 +69,12 @@ const BottomNav = ( ) => {
                     </Link>
                 </div>
                 {quantity && quantity > 0 && location.patname !== "/wizard" ? 
-                    <button><Link style={{color: "white", textDecoration: "none"}} to={user ? "/wizard" : "/signin"}> <ShoppingCartOutlinedIcon /> Gå till kassa</Link></button>
+                    <button onClick={handleToPay}>
+                        <ShoppingCartOutlinedIcon /> Gå till kassa
+                        {/* <Link style={{color: "white", textDecoration: "none"}} to={user && orderId ? `/wizard/${orderId}` : "/signin"}> 
+                            <ShoppingCartOutlinedIcon /> Gå till kassa
+                        </Link> */}
+                    </button>
                     : ""
                     }
                 <div>

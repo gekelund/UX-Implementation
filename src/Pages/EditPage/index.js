@@ -68,7 +68,7 @@ const EditPage = ({ match }) => {
     const [updateSoup, setUpdateSoup] = useState(false);
     const history = useHistory();
     const findSoup = params.soupID.match((/\d+/)) !== null && params.soupID.match((/\d+/)[0]) ? soupe.find(soup => soup.ref === Number(params.soupID.match(/\d+/)[0])) : false;
-  
+    const {orderId} = state;
 
     useEffect(() => {
         let State = JSON.parse(localStorage.getItem("State"))
@@ -82,9 +82,9 @@ const EditPage = ({ match }) => {
             history.push('/')
         }
         if(updateSoup) {
-            history.push('/wizard')
+            history.push(`/wizard/${orderId}`)
         }
-    }, [state, addNew, updateSoup, history])
+    }, [state, addNew, updateSoup, history, orderId])
     
     const handleOrder = () => {
         

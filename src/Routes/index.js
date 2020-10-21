@@ -10,7 +10,7 @@ import Wizard from '../Pages/Wizard';
 
 export const LANDING = '/';
 export const SIGN_IN = '/signin';
-export const WIZARD = '/wizard';
+export const WIZARD = '/wizard/:orderId';
 export const EDIT = '/edit/:soupID';
 
 

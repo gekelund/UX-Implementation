@@ -28,3 +28,26 @@ export const FilterdSoups = (soups) => {
     }
 }
     
+export const createOrder = (userId, db, state, updateState, history, firebase) => {
+    
+    let docRef = db.collection("users").doc(userId);
+    docRef.get().then(async function(doc) {
+        if(doc.exist) {
+            const { id } = await db.collection('orders').add(state);
+            updateState({orderId: id});
+    
+            await db.doc(`users/${userId}`).update({
+            orders: firebase.firestore.FieldValue.arrayUnion(id),
+        });
+        } else {
+            const { id } = await db.collection('orders').add(state);
+            updateState({orderId: id});
+   
+            await db.doc(`users/${userId}`).set({
+            orders: firebase.firestore.FieldValue.arrayUnion(id),
+        });
+        return history.push(`/wizard/${id}`) 
+        }
+    } )
+}
+ 

@@ -44,11 +44,13 @@ const Overview = () => {
     const { deliveryinfo, soupe } = state;
     const { stepState , updateStepState} = useContext(StepContext);
     const {steps} = stepState;
+    const {orderId} = state;
     
+    console.log("overview", state)
+
     const Scrolling = () => {
         let target = document.querySelector('#payment');
         window.onscroll = () => {
-            console.log(window.pageYOffset)
             if(window.pageYOffset * 3 >= target.getBoundingClientRect().top) {
                 updateStepState(steps[2].access = true);
             }
@@ -81,27 +83,12 @@ const Overview = () => {
         
         let userId = user?.uid;
         const db = firebase.firestore();
-        let docRef = db.collection("users").doc(userId);
-        console.log(userId)
-            docRef.get().then(async function(doc) {
-                
-                if (doc.exists) {
-                    const { id } = await db.collection('orders').add(state);
-                    updateState({orderId: id});
-                
-                    await db.doc(`users/${userId}`).update({
-                    orders: firebase.firestore.FieldValue.arrayUnion(id),
-                    });
-                } else {
-                    const { id } = await db.collection('orders').add(state);
-                    updateState({orderId: id});
-           
-                    await db.doc(`users/${userId}`).set({
-                    orders: firebase.firestore.FieldValue.arrayUnion(id),
-                });
-                return;
-                }
-           
+        
+        await db.collection('orders').doc(orderId).set(state);
+                  
+        await db.doc(`users/${userId}`).set({
+            orders: firebase.firestore.FieldValue.arrayUnion(orderId),
+
             }).catch(function(error) {
                 console.log("Error getting document:", error);
             });
