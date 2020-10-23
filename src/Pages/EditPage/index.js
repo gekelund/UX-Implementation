@@ -8,8 +8,9 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { useHistory } from 'react-router-dom';
 
+
 const EditStyling = styled.div.attrs({
-    className: "w-full h-screen flex flex-col mt-32 pb-32 items-center justify-center items-center bg-gray-100",
+    className: "w-full h-screen flex flex-col pb-32 items-center justify-center items-center bg-gray-100",
   })`
     & {
         header {
@@ -59,20 +60,23 @@ const EditStyling = styled.div.attrs({
 
 const EditPage = ({ match }) => {
     const { state, updateState } = useContext(StateContext);
+    const {soupe, ref, quantity, totalPris} = state;
     const { params } = match;
     const textareaRef = useRef(null);
-    const {soupe, ref, quantity, totalPris} = state;
-    const editSoups = soups.find(soup => params.soupID.includes(soup.id));
+    const editSoups =  soups.find(soup => params.soupID.includes(soup.id));
     const [addNew, setAddNew] = useState(false);
     const [updateSoup, setUpdateSoup] = useState(false);
     const history = useHistory();
-    const findSoup = params.soupID.match((/\d+/)) !== null && params.soupID.match((/\d+/)[0]) ? soupe.find(soup => soup.ref === Number(params.soupID.match(/\d+/)[0])) : false;
+    const findSoup = params.soupID.match((/\d+/)) !== null && params.soupID.match((/\d+/)[0]) ? soupe.find(soup => soup.ref === Number(params.soupID.match(/\d+/)[0])) : false; 
   
-
+   if(findSoup !== undefined) {
+    console.log(findSoup.special)
+}
     useEffect(() => {
-        let State = JSON.parse(localStorage.getItem("State"))
-            updateState(State);
         
+        let State = JSON.parse(localStorage.getItem("State"))
+        updateState(State);
+      
     },[])
 
     useEffect(() => {
@@ -81,16 +85,17 @@ const EditPage = ({ match }) => {
             history.push('/')
         }
         if(updateSoup) {
-            history.push('/wizard')
+            history.push(`/wizard`)
         }
-    }, [state, addNew, updateSoup, history])
+    }, [state, addNew, updateSoup, history, soupe])
     
     const handleOrder = () => {
         
         
         if(findSoup) {
-            console.log(findSoup)
-            updateState(findSoup.special = textareaRef.current.value)
+            console.log(findSoup.special)
+            findSoup.special = textareaRef.current.value
+            updateState({soupe : [...soupe]})
             setUpdateSoup(true);
         } else {
         const newSoup = soups.find(soup => soup.title === params.soupID);
@@ -106,7 +111,8 @@ const EditPage = ({ match }) => {
 
     return (
         <EditStyling>
-           
+            {editSoups ? 
+            <>
             <header>
                 <img src={editSoups.image} alt={editSoups.title} />
                 <h1>{editSoups.title}</h1>
@@ -161,6 +167,10 @@ const EditPage = ({ match }) => {
                 </div>
                 <button onClick={handleOrder}>{findSoup ? 'Uppdatera' : 'Lägg till'}</button>
             </footer>
+            </>
+            :
+            <p>Loading...</p>
+            }
         </EditStyling>
     )
 }

@@ -74,11 +74,12 @@ const DeliveryOverviewCard = ({deliveryinfo}) => {
                         <tr>
                             <td>Levernassätt</td>
                             <td>{deliveryinfo.leveranstyp}</td>
-                        </tr><tr>
-                            <td>Levernasdag / tid</td>
-                            <td>{deliveryinfo.leveransdatum}</td>
-                            <td>{deliveryinfo.levernastid}</td>
                         </tr>
+                         <tr>
+                            <td>Levernasdag / tid</td>
+                            <td>{deliveryinfo.leveransdatum ? deliveryinfo.leveransdatum.toString().substring(0, 10) : ""}</td>
+                            <td>{deliveryinfo.levernastid}</td>
+                        </tr> 
                         </>
                      : ""}
                         

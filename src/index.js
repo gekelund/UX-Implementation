@@ -13,9 +13,9 @@ ReactDOM.render(
     <FirebaseProvider>
       <UserProvider>
         <StateContextProvider>
-          <StepContextProvider>
+         {/*  <StepContextProvider> */}
           <App />
-          </StepContextProvider>
+         {/*  </StepContextProvider> */}
         </StateContextProvider>
       </UserProvider>
     </FirebaseProvider>

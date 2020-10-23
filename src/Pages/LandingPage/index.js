@@ -1,12 +1,12 @@
 import React, {useContext, useEffect} from 'react';
 import SoupCard from '../../Components/SoupCard';
-import { StateContext } from '../../StateContext';
+import { initialState, StateContext } from '../../StateContext';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import { soups } from '../../Components/SoupCard/Soups';
 import TopBar from '../../Components/TopBar';
-import { useHistory } from 'react-router-dom';
 import SignOutPage from '../../Components/SignOut';
+
 
 const LandingStyling = styled.div.attrs({
     className: "w-full h-screen flex flex-column flex-wrap mt-32 pb-32 justify-center",
@@ -24,22 +24,30 @@ const LandingStyling = styled.div.attrs({
     }
   `;
 
- 
+  
 
 const LandingPage = () => {
-
+    
     const { state, updateState } = useContext(StateContext);
     const { soupe, quantity, totalPris, ref } = state;
-    const history = useHistory();
+    const {completed} = state;
 
     useEffect(() => {
-        let State = JSON.parse(localStorage.getItem("State"))
-        updateState(State);
+       
+            let State = JSON.parse(localStorage.getItem("State"))
+            updateState(State);
+       
     },[])
 
+
+
     useEffect(() => {
+         if(completed) {
+             localStorage.setItem('State', JSON.stringify(initialState))
+         } else {
         localStorage.setItem('State', JSON.stringify(state));
-    }, [state])
+    }
+    }, [state, completed])
 
     const handleButton = (e) => {
         soups.map(soup => {
@@ -52,8 +60,6 @@ const LandingPage = () => {
         });
     }
    
-   
-   
 
    const handleDelete = (e) => {
         const newSoupe = soupe.filter( soup => Number(soup.ref) !== Number(e.target.closest('tr').id))
@@ -62,16 +68,22 @@ const LandingPage = () => {
         updateState({totalPris: totalPris - Number(e.target.closest('tr').childNodes[2].innerHTML)})
    }
   
-
+const Menu = () => {
 
     return (
+        <main>
+        <h1>Upptäck våra läckra soppor</h1>
+        <h3>Alla soppor kommer med bröd och vispat smör</h3>
+        <SoupCard onClickButton={handleButton} stateSoup={ref}/>
+    </main>
+    )
+}
+
+    return (
+        
         <LandingStyling>
             <TopBar number={quantity} totalpris={totalPris} soupeList={soupe} handleDelete={handleDelete} />
-            <main>
-                <h1>Upptäck våra läckra soppor</h1>
-                <h3>Alla soppor kommer med bröd och vispat smör</h3>
-                <SoupCard onClickButton={handleButton} stateSoup={ref}/>
-            </main>
+          <Menu />
             <SignOutPage />
         </LandingStyling>
     )

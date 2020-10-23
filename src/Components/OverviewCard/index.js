@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
-import {Link} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
+import {FilterdSoups} from '../../Utilities';
+
 
 const OverviewCardStyling = styled.div.attrs({
     className: "w-full h-screen",
@@ -35,30 +37,24 @@ const OverviewCardStyling = styled.div.attrs({
   `;
 
 const OverviewCard = ({soups}) => {
+    const history = useHistory()
+    const [antal, setAntal] = useState(FilterdSoups(soups))
+
     
 
-    const antalNormal = soups.filter(soup => soup.soupe && !soup.special);
-    const antalSpecial = soups.filter(soup => soup.soupe && soup.special);
+    useEffect(() => {
+        const filter = FilterdSoups(soups);
+        setAntal(filter)
+    }, [soups])
+  
     
-    const normalSoups = antalNormal.map(soup => soup.soupe);
-    const specialSoupe = antalSpecial.map(soup => soup.soupe);
 
-    const AntalNormalSoups = {};
-    const AntalSpecialSoups = {};
+    const handleNormalSoup = (e) => {
+        console.log(e.target.closest('tr').firstChild.id)
+        const selectedSoup = soups.find(soup => soup.soupe === e.target.closest('tr').firstChild.id && !soup.special)
+        history.push(`/edit/${selectedSoup.soupe}${selectedSoup.ref}`)
+    }
 
-    const AntalFunction = (listSoups, listAntal) => {
-       return listSoups.forEach(function(i) { listAntal[i] = (listAntal[i]||0) + 1;});
-    } 
-   
-    AntalFunction(normalSoups, AntalNormalSoups);
-    AntalFunction(specialSoupe, AntalSpecialSoups);
-
-    console.log("Normal", antalNormal, "special", antalSpecial)
-
-    const filteredNormalSoups = soups.filter((item, index) => normalSoups.indexOf(item.soupe) === index);
-    
-    const filteredSpecialSoups = soups.filter((item) => item.special)
-    console.log(filteredSpecialSoups)
 
     return (
         <OverviewCardStyling>
@@ -74,21 +70,20 @@ const OverviewCard = ({soups}) => {
                             <th>Ändra</th>
                             
                         </tr>
-                    {filteredSpecialSoups ? filteredSpecialSoups.map(soups => (
+                    {antal.filteredSpecialSoups ? antal.filteredSpecialSoups.map(soups => (
                         <tr id={soups.ref}> 
-                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
-                            <td>{AntalSpecialSoups[soups.soupe]}</td>
-                            <td><Link to={`/edit/${soups.soupe}${soups.ref}`}><EditOutlinedIcon /></Link></td>
+                            <td id={soups.soupe}>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
+                            <td>1</td>
+                            <td onClick={() => history.push(`/edit/${soups.soupe}${soups.ref}`)}><EditOutlinedIcon /></td> 
                             {/* <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td> */}
                         </tr>
                     )) : 
                         ""}   
-                    {filteredNormalSoups ? filteredNormalSoups.map(soups => (
+                    {antal.filteredNormalSoups ? antal.filteredNormalSoups.map(soups => (
                         <tr id={soups.ref}> 
-                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
-                            <td>{AntalNormalSoups[soups.soupe]}</td>
-                            <td><Link to={`/edit/${soups.soupe}${soups.ref}`}><EditOutlinedIcon /></Link></td>
-                            {/* <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td> */}
+                            <td id={soups.soupe}>{soups.soupe}</td>
+                            <td>{antal.AntalNormalSoups[soups.soupe]}</td>
+                            <td onClick={handleNormalSoup}><EditOutlinedIcon /></td>
                         </tr>
                     )) : 
                         ""

@@ -2,19 +2,20 @@ import React, { useContext, useEffect} from 'react';
 import {StepContext} from './wizardContext';
 import DeliveryInfo from './deliveryInfo';
 import Overview from './overview';
-import Confirmation from './confirmation';
+
 import PathHeader from '../../Components/PathHeader';
 import { StateContext } from '../../StateContext';
-import {UserContext} from '../../Firebase/UserContext';
+import { StepContextProvider } from './wizardContext';
+
+
 
 const Wizard = () => {
+
+const WizardSteps = () => {
 const { stepState , updateStepState} = useContext(StepContext);
 const { state, updateState } = useContext(StateContext);
-const user = useContext(UserContext);
+const { currentStep, steps } = stepState;
 
-useEffect(() => {
-  if(!user){ return;}
-}, [user]);
 
 useEffect(() => {  
   let State = JSON.parse(localStorage.getItem("State"));
@@ -23,20 +24,16 @@ useEffect(() => {
   let StepState = JSON.parse(localStorage.getItem("StepState"));
   updateStepState(StepState);
 
-  window.scrollTo(0, 0);
   
 },[]);
 
-useEffect(() => {
+useEffect( () => {
   localStorage.setItem('StepState', JSON.stringify(stepState));
   localStorage.setItem('State', JSON.stringify(state));
-
-}, [stepState, state]);
-
-
-
-
-const { currentStep, steps } = stepState;
+  if(!steps[2].access && !steps[2].completed) {
+  window.scrollTo(0, 0);
+}
+}, [stepState, state, steps]);
 
 
 
@@ -49,7 +46,7 @@ const handleDeliveryInfo = () => {
 const handleOverview = () => {
   if(steps[0].completed && steps[1].access) {
     updateStepState({currentStep: 1})
-    window.location.hash = "#order"
+    
   } 
   
 }
@@ -62,27 +59,30 @@ const handlePay = () => {
   }
 }
 
-const handleConfirmation = () => {
-  if(steps[3].completed && steps[3].access)
-  updateStepState({currentStep: 2})
-} 
 
 
-
-console.log(stepState)
-const Components = [<DeliveryInfo />, <Overview />,  <Confirmation />];
-return (
-  <div>
+const Components = [<DeliveryInfo />, <Overview />];
+  
+  return (
+    <div>
     <PathHeader 
       handleDeliveryInfo={handleDeliveryInfo} 
       handleOverview={handleOverview} 
       handlePay={handlePay}
-      handleConfirmation={handleConfirmation}
+      steps={steps}
+      completed={false}
     />
  
      <div>{Components[currentStep]}</div>
-  </div>
-    
+    </div>
+  )
+}
+
+
+return (
+  <StepContextProvider>
+    <WizardSteps />
+  </StepContextProvider>
 )
 }
 

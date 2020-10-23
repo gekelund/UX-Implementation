@@ -9,24 +9,14 @@ export const UserProvider = ({ children }) => {
 
 
   useEffect(() => {
+
+
     const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
       if (!authUser) {
         setUser(null);
         return;
       } else return setUser(authUser);
-
-     /*  const dbUser = firebase.firestore().doc(`users/${authUser.uid}`);
-
-      dbUser.get().then((doc) => {
-        if (!doc.exists) {
-          dbUser.set({});
-        }
-
-        dbUser.onSnapshot((snapshot) =>
-          setUser({ ...authUser, ...snapshot.data() })
-        );
-      }); */
-    });
+     });
 
     return () => unsubscribe();
   }, [firebase]);
