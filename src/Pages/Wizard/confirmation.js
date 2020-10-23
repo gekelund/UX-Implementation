@@ -2,10 +2,10 @@ import React, {useEffect, useContext, useState} from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import {FirebaseContext} from '../../Firebase/FirebaseContext';
-import { StateContext } from '../../StateContext';
+import { initialState, StateContext } from '../../StateContext';
 import {FilterdSoups} from '../../Utilities';
 import ReceiptCard from '../../Components/ReceiptCard';
-
+import PathHeader from '../../Components/PathHeader';
 
 const ConfirmationStyling = styled.div.attrs({
     className: "w-full h-screen",
@@ -17,22 +17,26 @@ const ConfirmationStyling = styled.div.attrs({
     }
   `;
 
-const Confirmation = () => {
+const Confirmation = ({match}) => {
     const {state, updateState} = useContext(StateContext);
     const firebase = useContext(FirebaseContext);
-    const {orderId} = state;
     const [data, setData] = useState(false);
     const SoppAntal = data ? FilterdSoups(data.soupe) : "";
+    const {params} =match
    
+    useEffect(() => {
+    
+            localStorage.setItem('State', JSON.stringify(initialState))
+       
+   }, [state])
 
     const getdoc = async () => {
         const db = firebase.firestore();
-        let docRef = await db.collection("orders").doc(`${orderId}`);
+        let docRef = await db.collection("orders").doc(`${params.orderID}`);
         docRef.get().then(function(doc) {
             if (doc.exists) {
-                console.log("Document data:", doc.data());
                 setData(doc.data())
-                updateState({completed: true})
+                updateState(initialState)
             } else {
                 console.log("No such document!");
             }
@@ -48,7 +52,7 @@ const Confirmation = () => {
     
     return (
         <ConfirmationStyling>
-        
+        <PathHeader completed={true} />
             Confirmation
             
             {data  ?
@@ -61,7 +65,7 @@ const Confirmation = () => {
                     leveransMeddelande={data.deliveryinfo.leveransmeddelande} 
                     soppor={data.soupe.soupe} 
                     antal={SoppAntal} 
-                    orderId={orderId}
+                    orderId={params.orderID}
                     totaltPris={data.totalPris}
                />
                <div>

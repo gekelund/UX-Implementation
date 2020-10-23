@@ -21,7 +21,7 @@ const PathStepStyling = styled.div.attrs({
     }
   `;
 
-const PathStep = ({onClick, icon, stepLabel, id, style}) => {
+const PathStep = ({ icon, stepLabel, id, style, onClick }) => {
     
     return (
         <PathStepStyling>

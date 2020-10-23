@@ -15,16 +15,7 @@ export const initialState = {
 };
 
 export const StateContextProvider = ({ children }) => {
- /*  const initialState = {
-    completed: false,
-    orderId: false,
-    soupe: [],
-    quantity: 0,
-    ref: 0,
-    totalPris: 0,
-    deliveryinfo: {},
-    dateCreate: Date.now() + 7 * 24 * 60 * 60 * 1000,
-  }; */
+
 
   const reducer = (currentState, newState) => ({ ...currentState, ...newState });
   

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import ListOutlinedIcon from '@material-ui/icons/ListOutlined';
 import PaymentOutlinedIcon from '@material-ui/icons/PaymentOutlined';
@@ -7,7 +7,7 @@ import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import PathStep from './pathStep';
-import {StepContext} from '../../Pages/Wizard/wizardContext';
+
 
 const PathHeaderStyling = styled.div.attrs({
     className: "w-full h-24 fixed top-0 left-0 flex justify-center items-center",
@@ -31,22 +31,42 @@ const PathHeaderStyling = styled.div.attrs({
 
 
 
-const PathHeader = ({handleDeliveryInfo, handleOverview, handleConfirmation, handlePay}) => {
-   const {stepState} = useContext(StepContext);
-
-
-   const {steps} = stepState;
+const PathHeader = ({completed, steps, handleDeliveryInfo, handleOverview, handlePay }) => {
+  
 
     return (
         <PathHeaderStyling>
             <nav>
-                <PathStep style={steps[0].access || steps[0].completed ? {backgroundColor: "green"} : {}} id={0} onClick={handleDeliveryInfo} icon={<EmailOutlinedIcon />} stepLabel="Leveransinfo" />
+                <PathStep 
+                    style={!completed ? steps[0].access || steps[0].completed ? {backgroundColor: "green"} : {} : {backgroundColor: "green"}} 
+                    id={0} 
+                    icon={<EmailOutlinedIcon />} 
+                    stepLabel="Leveransinfo" 
+                    onClick={handleDeliveryInfo}
+                    />
                 <RemoveOutlinedIcon />
-                <PathStep style={steps[1].access || steps[1].completed ? {backgroundColor: "green"} : {}} id={1} onClick={handleOverview} icon={<ListOutlinedIcon />} stepLabel="Orderöversikt" />
+                <PathStep 
+                    style={!completed ? steps[1].access || steps[1].completed ? {backgroundColor: "green"} : {} : {backgroundColor: "green"}} 
+                    id={1} 
+                    icon={<ListOutlinedIcon />} 
+                    stepLabel="Orderöversikt" 
+                    onClick={handleOverview}
+                    />
                 <RemoveOutlinedIcon />
-                <PathStep style={steps[2].access || steps[2].completed ? {backgroundColor: "green"} : {}} id={2} onClick={handlePay} icon={<PaymentOutlinedIcon />} stepLabel="Betalning" />
+                <PathStep 
+                    style={!completed ? steps[2].access || steps[2].completed ? {backgroundColor: "green"} : {} : {backgroundColor: "green"}} 
+                    id={2} 
+                    icon={<PaymentOutlinedIcon />} 
+                    stepLabel="Betalning" 
+                    onClick={handlePay}
+                    />
                 <RemoveOutlinedIcon />
-                <PathStep style={steps[3].access || steps[3].completed ? {backgroundColor: "green"} : {}} id={3} onClick={handleConfirmation} icon={<CheckCircleOutlineOutlinedIcon />} stepLabel="Bekräftelse" />
+                <PathStep  
+                    style={completed ? {backgroundColor: "green"} : {}}
+                    id={3} 
+                    icon={<CheckCircleOutlineOutlinedIcon />} 
+                    stepLabel="Bekräftelse" 
+                    />
             </nav>
         </PathHeaderStyling>
     )

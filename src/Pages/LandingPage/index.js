@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import SoupCard from '../../Components/SoupCard';
-import { StateContext, initialState } from '../../StateContext';
+import { initialState, StateContext } from '../../StateContext';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import { soups } from '../../Components/SoupCard/Soups';
@@ -29,28 +29,25 @@ const LandingStyling = styled.div.attrs({
 const LandingPage = () => {
     
     const { state, updateState } = useContext(StateContext);
-    const { soupe, quantity, totalPris, ref, orderId, completed } = state;
-    console.log(initialState)
-    useEffect(() => {
-       if(orderId && !completed){
-           let wizardState = JSON.parse(localStorage.getItem("wizardState"))
-           updateState(wizardState);
-       } else {
-            let State = JSON.parse(localStorage.getItem("State"))
-            updateState(State);
-       }
-    },[])
+    const { soupe, quantity, totalPris, ref } = state;
+    const {completed} = state;
 
     useEffect(() => {
-        if(orderId && !completed) {
-            localStorage.setItem('wizardState', JSON.stringify(state));
-        } else if (orderId && completed){
-            localStorage.setItem('State', JSON.stringify(initialState));
-        } else {
-            localStorage.setItem('State', JSON.stringify(state));
-        }
-        
-    }, [state, orderId, completed])
+       
+            let State = JSON.parse(localStorage.getItem("State"))
+            updateState(State);
+       
+    },[])
+
+
+
+    useEffect(() => {
+         if(completed) {
+             localStorage.setItem('State', JSON.stringify(initialState))
+         } else {
+        localStorage.setItem('State', JSON.stringify(state));
+    }
+    }, [state, completed])
 
     const handleButton = (e) => {
         soups.map(soup => {
@@ -81,7 +78,7 @@ const Menu = () => {
     </main>
     )
 }
-console.log(state)
+
     return (
         
         <LandingStyling>

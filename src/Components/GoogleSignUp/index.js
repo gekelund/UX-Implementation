@@ -17,8 +17,7 @@ const GoogleSignUp = () => {
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('wizardState', JSON.stringify(state));
-        localStorage.removeItem('State');
+        localStorage.setItem('State', JSON.stringify(state));
     }, [state])
 
     const onGoogleSignUp = async () => {
@@ -54,7 +53,7 @@ const GoogleSignUp = () => {
             orders: firebase.firestore.FieldValue.arrayUnion(id),
             })
             .then(() => updateState({orderId: id}))
-            .then(() =>  history.push(`/wizard/${id}`))
+            .then(() =>  history.push(`/wizard`))
             .catch(function(error) {
                     console.log("Error getting document:", error);
                 });
@@ -64,8 +63,6 @@ const GoogleSignUp = () => {
           } ) 
     }
 
-   
-    console.log(state)
   
     return (
         <div>
@@ -78,4 +75,3 @@ const GoogleSignUp = () => {
 }
 
 export default GoogleSignUp;
-

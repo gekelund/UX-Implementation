@@ -1,18 +1,15 @@
 import React, {useContext, useEffect} from 'react';
-import SoupCard from '../../Components/SoupCard';
+
 import { StateContext } from '../../StateContext';
-import styled from "styled-components";
-import tw from "tailwind.macro";
-import { soups } from '../../Components/SoupCard/Soups';
+
 import TopBar from '../../Components/TopBar';
-import { useHistory } from 'react-router-dom';
-import LandingPage from '../LandingPage';
+
 
 
 const SelectOrder = () => {
     const { state, updateState } = useContext(StateContext);
-    const { soupe, quantity, totalPris, ref } = state;
-    const history = useHistory();
+    const { soupe, quantity, totalPris, } = state;
+    
 
     useEffect(() => {
         let State = JSON.parse(localStorage.getItem("State"))

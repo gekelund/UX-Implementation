@@ -30,6 +30,7 @@ const DropdownStyling = styled.div.attrs({
 
 const Dropdown = ({soupeList, handleDelete}) => {
 
+    
     const antalNormal = soupeList.filter(soup => soup.soupe && !soup.special);
     const antalSpecial = soupeList.filter(soup => soup.soupe && soup.special);
     
@@ -46,12 +47,11 @@ const Dropdown = ({soupeList, handleDelete}) => {
     AntalFunction(normalSoups, AntalNormalSoups);
     AntalFunction(specialSoupe, AntalSpecialSoups);
 
-    console.log("Normal", antalNormal, "special", antalSpecial)
 
     const filteredNormalSoups = soupeList.filter((item, index) => normalSoups.indexOf(item.soupe) === index);
     
     const filteredSpecialSoups = soupeList.filter((item) => item.special)
-    console.log(filteredSpecialSoups)
+    
     
     
     return (
@@ -68,7 +68,7 @@ const Dropdown = ({soupeList, handleDelete}) => {
                     {filteredSpecialSoups ? filteredSpecialSoups.map(soups => (
                         <tr id={soups.ref}> 
                             <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
-                            <td>{AntalSpecialSoups[soups.soupe]}</td>
+                            <td>1</td>
                             <td key="pris">{soups.pris}</td>
                             <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>
                         </tr>
@@ -76,7 +76,7 @@ const Dropdown = ({soupeList, handleDelete}) => {
                         ""}   
                     {filteredNormalSoups ? filteredNormalSoups.map(soups => (
                         <tr id={soups.ref}> 
-                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
+                            <td>{soups.soupe}</td>
                             <td>{AntalNormalSoups[soups.soupe]}</td>
                             <td key="pris">{soups.pris}</td>
                             <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td>

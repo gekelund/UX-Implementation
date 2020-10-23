@@ -3,7 +3,7 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
 import RestaurantMenuOutlinedIcon from '@material-ui/icons/RestaurantMenuOutlined';
-import { Link, useLocation, useHistory} from 'react-router-dom';
+import { Link, useLocation, useHistory, NavLink} from 'react-router-dom';
 import { StateContext } from '../../StateContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { FirebaseContext } from '../../Firebase/FirebaseContext';
@@ -78,10 +78,10 @@ const BottomNav = ( ) => {
                     : ""
                     }
                 <div>
-                    <Link style={{textDecoration: "none"}} to="/">
+                    <NavLink style={{textDecoration: "none"}} to="/">
                         <RestaurantMenuOutlinedIcon style={{fontSize: "35", color: "white"}} />
                         <p>Meny</p>
-                    </Link>
+                    </NavLink>
                 </div>
                 
             </nav>

@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, { useContext, useState } from 'react';
 import FormGroup from '../../Components/FormGroup';
 import Input from '../../Components/Inputs';
 import RadioButton from '../../Components/RadioButton';
@@ -61,10 +61,6 @@ const DeliveryInfo = () => {
         const {deliveryinfo} = state;
         const [date, setDate] = useState(false);
 
-        useEffect(() => {
-            window.scrollTo(0, 0)
-        }, [])
-
         const onSubmit = (data, date) => {
             if(date) {
                 let totData = Object.assign(deliveryinfo, data);
@@ -73,9 +69,9 @@ const DeliveryInfo = () => {
                 updateState({deliveryinfo: data});
             }
             updateStepState(steps[0].completed = true);
-            updateStepState({currentStep: 1});
             updateStepState(steps[1].access = true);
             updateStepState(steps[1].completed = true)
+            updateStepState({currentStep: 1})
         }
       
         const onChange = (e) => {
@@ -94,8 +90,6 @@ const DeliveryInfo = () => {
             let levTid = Object.assign(deliveryinfo, {levernastid: e.target.value})
             updateState({deliveryinfo: levTid})
         }
-
-        console.log(deliveryinfo)
 
     return (
         <DeliveryInfoStyling>

@@ -1,6 +1,6 @@
-import React, {useContext, useLayoutEffect, useEffect} from 'react';
-import { StateContext } from '../../StateContext';
-import { StepContext } from './wizardContext';
+import React, {useContext, useLayoutEffect } from 'react';
+import { StateContext, initialState } from '../../StateContext';
+import { StepContext, initialStepState } from './wizardContext';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import OverviewCard from '../../Components/OverviewCard';
@@ -8,6 +8,7 @@ import DeliveryOverviewCard from '../../Components/DeliveryOverview';
 import PaymentCard from '../../Components/PaymentCard';
 import {UserContext} from '../../Firebase/UserContext';
 import {FirebaseContext} from '../../Firebase/FirebaseContext';
+import { useHistory, Link } from 'react-router-dom';
 
 
 
@@ -45,8 +46,9 @@ const Overview = () => {
     const { stepState , updateStepState} = useContext(StepContext);
     const {steps} = stepState;
     const {orderId} = state;
-    
-    console.log("overview", state)
+    const history = useHistory();
+
+  
 
     const Scrolling = () => {
         let target = document.querySelector('#payment');
@@ -57,11 +59,6 @@ const Overview = () => {
         }
     }
 
-    useEffect(() => {
-        if(!steps[2].access) {
-            window.scrollTo(0, 0);
-        }
-    }, [])
     
 
     useLayoutEffect(() => {
@@ -73,13 +70,7 @@ const Overview = () => {
     
 
       const handleSwish = async () => {
-        updateStepState(steps[3].completed = true);
-        updateStepState(steps[2].completed = true);
-        updateStepState(steps[3].access = true);
-        updateStepState(steps[2].access = false);
-        updateStepState(steps[1].access = false);
-        updateStepState(steps[0].access = false);
-        updateStepState({currentStep: 3});
+       
         
         let userId = user?.uid;
         const db = firebase.firestore();
@@ -88,41 +79,53 @@ const Overview = () => {
                   
         await db.doc(`users/${userId}`).set({
             orders: firebase.firestore.FieldValue.arrayUnion(orderId),
-
-            }).catch(function(error) {
+            
+            })
+            .then(localStorage.clear())
+            .then(() => {
+                updateStepState(initialStepState);
+                updateState(initialState);
+            })
+            .then(history.push(`/confirmation/${orderId}`))
+            .catch(function(error) {
                 console.log("Error getting document:", error);
             });
         
             
       }
 
-      const handleMastercard = () => {
-          steps.map(step => {
-              if(step.access === true) {
-                updateStepState(step.access = false)
-              } else updateStepState(step.access = true)
-              
-          });
-        updateStepState(steps[3].completed = true);
-        updateStepState(steps[2].completed = true);
-        updateStepState(steps[1].completed = true);
-        updateStepState(steps[0].completed = true);
-        updateStepState({currentStep: 3});
-        console.log(stepState)
+      const handleMastercard = async () => {
+        let userId = user?.uid;
+        const db = firebase.firestore();
+        
+        await db.collection('orders').doc(orderId).set(state);
+                  
+        await db.doc(`users/${userId}`).set({
+            orders: firebase.firestore.FieldValue.arrayUnion(orderId),
+            
+            })
+          
+            .then(() => {
+                updateStepState(initialStepState);
+                updateState(initialState);
+            })
+            .then(localStorage.clear())
+            .then(history.push(`/confirmation/${orderId}`))
+            .catch(function(error) {
+                console.log("Error getting document:", error);
+            });
       }
 
-  
-  
 
     return (
         <OverviewStyling id="order">
-            
-            <OverviewCard soups={soupe}/>
+            <Link to='/' >Click</Link>
+            <OverviewCard soups={soupe} orderId={orderId} />
             <DeliveryOverviewCard deliveryinfo={deliveryinfo} />
             
-            <div id="payment">
+            <div id="payment" >
                 <PaymentCard handleSwish={handleSwish} handleMastercard={handleMastercard} />
-               
+                
                 
             </div>
             

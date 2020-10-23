@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
-import {Link} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import {FilterdSoups} from '../../Utilities';
+
 
 const OverviewCardStyling = styled.div.attrs({
     className: "w-full h-screen",
@@ -36,9 +37,25 @@ const OverviewCardStyling = styled.div.attrs({
   `;
 
 const OverviewCard = ({soups}) => {
+    const history = useHistory()
+    const [antal, setAntal] = useState(FilterdSoups(soups))
+
     
-    const antal = FilterdSoups(soups)
+
+    useEffect(() => {
+        const filter = FilterdSoups(soups);
+        setAntal(filter)
+    }, [soups])
+  
     
+
+    const handleNormalSoup = (e) => {
+        console.log(e.target.closest('tr').firstChild.id)
+        const selectedSoup = soups.find(soup => soup.soupe === e.target.closest('tr').firstChild.id && !soup.special)
+        history.push(`/edit/${selectedSoup.soupe}${selectedSoup.ref}`)
+    }
+
+
     return (
         <OverviewCardStyling>
             <table>
@@ -55,19 +72,18 @@ const OverviewCard = ({soups}) => {
                         </tr>
                     {antal.filteredSpecialSoups ? antal.filteredSpecialSoups.map(soups => (
                         <tr id={soups.ref}> 
-                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
-                            <td>{antal.AntalSpecialSoups[soups.soupe]}</td>
-                            <td><Link to={`/edit/${soups.soupe}${soups.ref}`}><EditOutlinedIcon /></Link></td>
+                            <td id={soups.soupe}>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
+                            <td>1</td>
+                            <td onClick={() => history.push(`/edit/${soups.soupe}${soups.ref}`)}><EditOutlinedIcon /></td> 
                             {/* <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td> */}
                         </tr>
                     )) : 
                         ""}   
                     {antal.filteredNormalSoups ? antal.filteredNormalSoups.map(soups => (
                         <tr id={soups.ref}> 
-                            <td>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </td>
+                            <td id={soups.soupe}>{soups.soupe}</td>
                             <td>{antal.AntalNormalSoups[soups.soupe]}</td>
-                            <td><Link to={`/edit/${soups.soupe}${soups.ref}`}><EditOutlinedIcon /></Link></td>
-                            {/* <td><DeleteOutlinedIcon onClick={handleDelete} fontSize="large" style={{color: "red"}} /></td> */}
+                            <td onClick={handleNormalSoup}><EditOutlinedIcon /></td>
                         </tr>
                     )) : 
                         ""
