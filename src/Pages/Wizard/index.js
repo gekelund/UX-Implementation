@@ -1,4 +1,4 @@
-import React, { useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import {StepContext} from './wizardContext';
 import DeliveryInfo from './deliveryInfo';
 import Overview from './overview';
@@ -6,6 +6,7 @@ import Overview from './overview';
 import PathHeader from '../../Components/PathHeader';
 import { StateContext } from '../../StateContext';
 import { StepContextProvider } from './wizardContext';
+
 
 
 
@@ -30,10 +31,11 @@ useEffect(() => {
 useEffect( () => {
   localStorage.setItem('StepState', JSON.stringify(stepState));
   localStorage.setItem('State', JSON.stringify(state));
-  if(!steps[2].access && !steps[2].completed) {
+
+if(currentStep && currentStep !==2) {
   window.scrollTo(0, 0);
 }
-}, [stepState, state, steps]);
+}, [stepState, state, steps, currentStep]);
 
 
 
@@ -55,7 +57,8 @@ const handlePay = () => {
   
   if(steps[1].completed && steps[2].access && steps[1].access) {
     updateStepState({currentStep: 1})
-    window.location.hash = "#payment"
+   /*  window.location.hash = "#payment" */
+  
   }
 }
 
@@ -64,7 +67,7 @@ const handlePay = () => {
 const Components = [<DeliveryInfo />, <Overview />];
   
   return (
-    <div>
+    <>
     <PathHeader 
       handleDeliveryInfo={handleDeliveryInfo} 
       handleOverview={handleOverview} 
@@ -74,7 +77,7 @@ const Components = [<DeliveryInfo />, <Overview />];
     />
  
      <div>{Components[currentStep]}</div>
-    </div>
+    </>
   )
 }
 

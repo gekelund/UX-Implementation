@@ -6,13 +6,22 @@ import { initialState, StateContext } from '../../StateContext';
 import {FilterdSoups} from '../../Utilities';
 import ReceiptCard from '../../Components/ReceiptCard';
 import PathHeader from '../../Components/PathHeader';
+import CountDown from '../../Components/Timer';
+import FeedbackCard from '../../Components/FeedbackCard';
+
 
 const ConfirmationStyling = styled.div.attrs({
-    className: "w-full h-screen",
+    className: "w-full h-auto",
   })`
     & {
        main {
-           ${tw`mt-32 mr-16 ml-16`}
+           ${tw`pt-32 mr-16 ml-16 pb-32 flex flex-col justify-center`}
+           h1 {
+               ${tw`text-center`}
+           }
+           div#timer {
+               ${tw`h-32 flex flex-col justify-center items-center m-8 border-b-2`}
+           }
        }
     }
   `;
@@ -22,7 +31,9 @@ const Confirmation = ({match}) => {
     const firebase = useContext(FirebaseContext);
     const [data, setData] = useState(false);
     const SoppAntal = data ? FilterdSoups(data.soupe) : "";
-    const {params} =match
+    const {params} =match;
+    const [feedbackText, setFeedbackText] = useState("");
+    const [feedbackData, setFeedbackData] = useState("")
    
     useEffect(() => {
     
@@ -49,14 +60,48 @@ const Confirmation = ({match}) => {
           getdoc()
     }, [])
 
+    useEffect(() => {
+        if(feedbackData.length > 0) {
+            const db = firebase.firestore();
+        
+            const sendFeedback = async () => {
+    
+            await db.collection('feedback').doc(`${params.orderID}`).set({feeling: feedbackData, comment: feedbackText })
+                      
+                .catch(function(error) {
+                    console.log("Error getting document:", error);
+                });
+            }
+            sendFeedback();
+        }
+        
+    }, [feedbackData])
+
+    const handleFeedback = (e) => {
+        if(e.target.closest('button').id === 'positiv') {
+           setFeedbackData('positive');
+
+        } else {
+            setFeedbackData('negative');
+        }
+
+        console.log(feedbackData)
+      
+    }
+
+    const handleTextArea = (e) => {
+        console.log(e.target.value);
+        setFeedbackText(e.target.value)
+    }
     
     return (
         <ConfirmationStyling>
         <PathHeader completed={true} />
-            Confirmation
+            
             
             {data  ?
             <main>
+                <h1>Tack för din beställning</h1>
                <ReceiptCard 
                     adress={data.deliveryinfo.Adress} 
                     ort={data.deliveryinfo.Ort} 
@@ -68,12 +113,15 @@ const Confirmation = ({match}) => {
                     orderId={params.orderID}
                     totaltPris={data.totalPris}
                />
-               <div>
-               <p>Din beställning levereras om:</p>
-               <p>Todo: timer</p>
-           </div>
+                <div id="timer">
+                    <p>Din beställning levereras om:</p>
+                    <CountDown />
+                </div>
            <div>
-               <p>Todo: feedback card</p>
+                <FeedbackCard 
+                    handleFeedback={handleFeedback} 
+                    handleTextArea={handleTextArea}
+                />
            </div>
                 </main>
                 : <p>Loding...</p>}

@@ -10,7 +10,7 @@ import PathStep from './pathStep';
 
 
 const PathHeaderStyling = styled.div.attrs({
-    className: "w-full h-24 fixed top-0 left-0 flex justify-center items-center",
+    className: "w-full h-24 fixed top-0 left-0 flex justify-center items-center bg-gray-200",
   })`
     & {
         nav {
