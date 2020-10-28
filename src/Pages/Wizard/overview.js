@@ -52,7 +52,7 @@ const Overview = () => {
     const {orderId} = state;
     const history = useHistory();
 
-  
+  console.log(user)
 
     const Scrolling = () => {
         let target = document.querySelector('#payment');
