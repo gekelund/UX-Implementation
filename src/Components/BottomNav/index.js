@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
@@ -8,13 +8,15 @@ import { StateContext } from '../../StateContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { FirebaseContext } from '../../Firebase/FirebaseContext';
 import { UserContext } from '../../Firebase/UserContext';
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import ProfileMenu from './profileMenu';
 
 const BottomNavStyle = styled.div.attrs({
     className: "w-full h-16 fixed bottom-0 left-0 right-0 bg-green-400",
   })`
     & {
         nav {
-            ${tw`w-full h-full flex justify-between md:justify-start pl-4 pr-4 items-center text-center`}
+            ${tw`w-full h-full flex justify-between pl-4 pr-4 items-center text-center`}
         }
         div {
             ${tw`w-24 h-full flex-col items-center justify-center flex `}
@@ -29,6 +31,7 @@ const BottomNavStyle = styled.div.attrs({
   `;
 
 
+
 const BottomNav = ( ) => {
     const firebase = useContext(FirebaseContext);
     const user = useContext(UserContext);
@@ -37,6 +40,7 @@ const BottomNav = ( ) => {
     const location = useLocation();
     const history = useHistory();
     const {orderId} = state;
+    const [open, setOpen] = useState(false);
 
     const handleToPay = () => {
         if(user && !orderId) {
@@ -57,35 +61,38 @@ const BottomNav = ( ) => {
 
     }
    
+    const handleProfil = () => {
+        setOpen(!open);
+    }
 
     return (
         <BottomNavStyle>
-            
+            <ProfileMenu user={user} open={open} />
             <nav>
+                <div onClick={handleProfil}>
+                        <PersonOutlineOutlinedIcon style={{fontSize: "35", color: "white"}} />
+                        <p>Profil</p>
+                </div>
                 <div>
-                    <Link style={{textDecoration: "none"}} to="/">
+                    <Link style={{textDecoration: "none"}} to="/support">
                         <ContactSupportOutlinedIcon style={{fontSize: "35", color: "white"}} />
                         <p>Support</p>
                     </Link>
                 </div>
-                {quantity && quantity > 0 && location.patname !== "/wizard" ? 
-                    <button onClick={handleToPay}>
-                        <ShoppingCartOutlinedIcon /> Gå till kassa
-                        {/* <Link style={{color: "white", textDecoration: "none"}} to={user && orderId ? `/wizard/${orderId}` : "/signin"}> 
-                            <ShoppingCartOutlinedIcon /> Gå till kassa
-                        </Link> */}
-                    </button>
-                    : ""
-                    }
+              
                 <div>
                     <NavLink style={{textDecoration: "none"}} to="/">
                         <RestaurantMenuOutlinedIcon style={{fontSize: "35", color: "white"}} />
                         <p>Meny</p>
                     </NavLink>
                 </div>
-                
+                {quantity && quantity > 0 && location.patname !== "/wizard" ? 
+                    <button onClick={handleToPay}>
+                        <ShoppingCartOutlinedIcon /> Gå till kassa
+                    </button>
+                    : ""
+                    }
             </nav>
-            
         </BottomNavStyle>
     )
 }

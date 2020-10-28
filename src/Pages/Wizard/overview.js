@@ -13,11 +13,11 @@ import { useHistory} from 'react-router-dom';
 
 
 const OverviewStyling = styled.div.attrs({
-    className: "w-full h-screen mt-32 mb-64 flex flex-col items-center",
+    className: "w-full h-auto pt-32 pb-64 flex flex-col items-center bg-gray-200",
   })`
     & {
         div {
-            ${tw`w-full h-auto bg-white text-center text-gray-800 flex flex-col items-center`}
+            ${tw`w-full h-auto bg-white text-center text-gray-800 flex flex-col items-center bg-gray-200`}
         }
         table {
             ${tw`w-max h-auto bg-white`}

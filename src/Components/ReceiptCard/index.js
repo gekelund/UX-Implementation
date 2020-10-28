@@ -197,7 +197,7 @@ const ReceiptCard = ({adress, ort, datum, tid, leveransMeddelande, antal, orderI
                         <p id="soupNormal">
                            
                             <span style={{paddingRight: "10px"}}>{antal.AntalNormalSoups[soups.soupe]}</span>
-                            <span>{soups.soupe}<br />{soups.special ?  <h5><i>Special: {soups.special.substring(0, 20)}...</i></h5> : ""} </span>
+                            <span>{soups.soupe}</span>
                         </p>
                     )) : 
                         ""

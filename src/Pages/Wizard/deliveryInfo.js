@@ -20,7 +20,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimeSelect from '../../Components/RadioButton/timeSelect';
 
 const DeliveryInfoStyling = styled.div.attrs({
-    className: "w-full h-screen flex justify-center",
+    className: "w-full h-auto flex justify-center",
   })`
     & {
         main {

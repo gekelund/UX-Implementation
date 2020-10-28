@@ -6,7 +6,7 @@ import SwishIcon from '../../SoupImages/swish_logo_secondary_RGB.svg';
 import MasterCardIcon from '../../SoupImages/mastercard.svg';
 
 const PaymentCardStyling = styled.section.attrs({
-    className: "w-3/5 h-auto mt-12 pl-12 pr-12 pb-12 pt-4 bg-white shadow-overviewCard rounded flex flex-col items-center justify-center",
+    className: "w-full sm:w-3/5 md:3/5 lg:3/5 h-auto mt-12 pl-12 pr-12 pb-12 pt-4 bg-white shadow-overviewCard rounded flex flex-col items-center justify-center",
   })`
     & {
         span {

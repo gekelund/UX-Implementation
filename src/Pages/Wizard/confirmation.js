@@ -11,11 +11,11 @@ import FeedbackCard from '../../Components/FeedbackCard';
 
 
 const ConfirmationStyling = styled.div.attrs({
-    className: "w-full h-auto",
+    className: "w-full h-full",
   })`
     & {
        main {
-           ${tw`pt-32 mr-16 ml-16 pb-32 flex flex-col justify-center`}
+           ${tw`h-full pt-32 mr-16 ml-16 pb-32 flex flex-col justify-center bg-gray-200`}
            h1 {
                ${tw`text-center`}
            }
@@ -84,8 +84,6 @@ const Confirmation = ({match}) => {
         } else {
             setFeedbackData('negative');
         }
-
-        console.log(feedbackData)
       
     }
 
@@ -117,12 +115,18 @@ const Confirmation = ({match}) => {
                     <p>Din beställning levereras om:</p>
                     <CountDown />
                 </div>
+           {!feedbackData ?      
            <div>
                 <FeedbackCard 
                     handleFeedback={handleFeedback} 
                     handleTextArea={handleTextArea}
                 />
            </div>
+           :
+           <div>
+               <h1>Tack för din Feedback!</h1>
+           </div>
+           }
                 </main>
                 : <p>Loding...</p>}
               
