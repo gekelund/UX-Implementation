@@ -3,6 +3,29 @@ import { FirebaseContext } from '../../Firebase/FirebaseContext';
 import { useHistory } from 'react-router-dom';
 import { StateContext } from '../../StateContext';
 import { createOrder } from '../../Utilities';
+import styled from "styled-components";
+import tw from "tailwind.macro";
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import GoogleIcon from '../../SoupImages/google-icon.svg';
+
+
+const SignInButtonStyle = styled.div.attrs({
+    className: "w-full h-auto flex flex-column justify-center",
+  })`
+    & {
+        button {
+            ${tw`w-64 h-16 bg-white hover:bg-green-400 text-gray-900 font-normal py-4 px-8 rounded-full m-10 shadow flex justify-between items-center`}
+            span {
+                ${tw`mr-16`}
+                img {
+                    ${tw`mr-16`}
+                }
+            }
+        }
+      
+        
+    }
+  `;
 
 const GoogleSignUp = () => {
     const firebase = useContext(FirebaseContext);
@@ -65,11 +88,13 @@ const GoogleSignUp = () => {
 
   
     return (
-        <div>
-            <button onClick={onGoogleSignUp}>Sign up with Google</button>
-            <button onClick={handleGuest}>Gå vidare som Gäst</button>
-            <p>{message}</p>
-        </div>
+        <SignInButtonStyle>
+            <div>
+                <button onClick={onGoogleSignUp}><img src={GoogleIcon} alt="google-icon" style={{width: "30px", height: "30px"}}/><span> Google</span></button>
+                <button onClick={handleGuest}><span><PersonOutlineIcon style={{fontSize: 30}} /></span> <span>Gäst</span></button>
+                <p>{message}</p>
+            </div>
+        </SignInButtonStyle>
     )
 
 }

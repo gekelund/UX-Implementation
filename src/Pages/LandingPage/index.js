@@ -27,7 +27,6 @@ const LandingStyling = styled.div.attrs({
   
 
 const LandingPage = () => {
-    
     const { state, updateState } = useContext(StateContext);
     const { soupe, quantity, totalPris, ref } = state;
     const {completed} = state;

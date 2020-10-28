@@ -48,11 +48,11 @@ const BottomNav = ( ) => {
                 await db.doc(`users/${userId}`).update({
                 orders: firebase.firestore.FieldValue.arrayUnion(id),
             });
-             history.push(`/wizard/${id}`);
+             history.push(`/wizard`);
         }
         createOrder();
     } else if (user && orderId){
-        history.push(`/wizard/${orderId}`)
+        history.push(`/wizard`)
     } else history.push("/signin")
 
     }

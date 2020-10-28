@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect } from 'react';
+import React, {useContext, useLayoutEffect, useRef } from 'react';
 import { StateContext, initialState } from '../../StateContext';
 import { StepContext, initialStepState } from './wizardContext';
 import styled from "styled-components";
@@ -8,7 +8,7 @@ import DeliveryOverviewCard from '../../Components/DeliveryOverview';
 import PaymentCard from '../../Components/PaymentCard';
 import {UserContext} from '../../Firebase/UserContext';
 import {FirebaseContext} from '../../Firebase/FirebaseContext';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 
 
 
@@ -34,9 +34,13 @@ const OverviewStyling = styled.div.attrs({
         th {
             ${tw`w-full`}
         }
+        div#payment {
+            ${tw`mb-32`}
+        }
         
     }
   `;
+
 
 const Overview = () => {
     const { state, updateState } = useContext(StateContext);
@@ -48,7 +52,7 @@ const Overview = () => {
     const {orderId} = state;
     const history = useHistory();
 
-  
+  console.log(user)
 
     const Scrolling = () => {
         let target = document.querySelector('#payment');
@@ -119,14 +123,11 @@ const Overview = () => {
 
     return (
         <OverviewStyling id="order">
-            <Link to='/' >Click</Link>
             <OverviewCard soups={soupe} orderId={orderId} />
             <DeliveryOverviewCard deliveryinfo={deliveryinfo} />
             
             <div id="payment" >
                 <PaymentCard handleSwish={handleSwish} handleMastercard={handleMastercard} />
-                
-                
             </div>
             
         </OverviewStyling>

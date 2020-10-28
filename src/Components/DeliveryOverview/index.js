@@ -39,7 +39,6 @@ const DeliveryOverviewCardStyling = styled.div.attrs({
   `;
 
 const DeliveryOverviewCard = ({deliveryinfo}) => {
-    console.log(deliveryinfo)
     
     return (
         <DeliveryOverviewCardStyling>

@@ -20,7 +20,7 @@ const TextAreaStyling = styled.div.attrs({
   `;
 
 
-const TextArea = ({ name, form, placeholder, register, labelName, icon}) => {
+const TextArea = ({ name, form, placeholder, register, labelName, icon, onChange}) => {
 
     return (
     <TextAreaStyling>
@@ -29,7 +29,7 @@ const TextArea = ({ name, form, placeholder, register, labelName, icon}) => {
                 {labelName}
                 {icon}
             </span>
-            <textarea name={name} form={form} placeholder={placeholder} ref={register} />
+            <textarea name={name} form={form} placeholder={placeholder} onChange={onChange} ref={register} />
         </label>
     </TextAreaStyling>
     )
