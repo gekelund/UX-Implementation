@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 
 const EditStyling = styled.div.attrs({
-    className: "w-full h-screen flex flex-col pb-32 items-center justify-center items-center bg-gray-100",
+    className: "w-full h-auto flex flex-col pb-32 items-center justify-center items-center bg-gray-100",
   })`
     & {
         header {

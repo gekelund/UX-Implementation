@@ -66,9 +66,10 @@ const GoogleSignUp = () => {
             });
 
           await firebase.auth().onAuthStateChanged(async function(user) {
+           if(user !== null) {
             let userId = user.uid;
-            console.log(userId)
-
+            
+           
             const { id } = await db.collection('orders').add(state);
             
    
@@ -80,10 +81,9 @@ const GoogleSignUp = () => {
             .catch(function(error) {
                     console.log("Error getting document:", error);
                 });
-           
-           
-
-          } ) 
+            }
+          }) 
+        
     }
 
   

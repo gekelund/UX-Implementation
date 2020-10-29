@@ -124,11 +124,11 @@ import tw from "tailwind.macro";
 
 
 const ReceiptCardStyling = styled.div.attrs({
-    className: "w-full h-auto",
+    className: "md:w-max w-auto h-auto",
   })`
     & {
         div {
-         ${tw`flex flex-col justify-center bg-white pb-4 pr-12 pl-12 pt-4 rounded-md shadow-overviewCard mt-12`}   
+         ${tw`flex flex-col justify-center items-center bg-white pb-4 pr-12 pl-12 pt-4 rounded-md shadow-overviewCard mt-12`}   
             h2{
                 ${tw`text-base text-gray-900 font-semibold pb-8`}
             }
@@ -139,6 +139,9 @@ const ReceiptCardStyling = styled.div.attrs({
                 ${tw`w-full flex flex-col mb-10`}
                 li {
                     ${tw`flex justify-between`}
+                    div#soupList {
+                        ${tw`flex flex-col border-none rounded-none shadow-none justify-end items-end p-0 m-0`}
+                    }    
                 }
             }
         }
@@ -186,6 +189,7 @@ const ReceiptCard = ({adress, ort, datum, tid, leveransMeddelande, antal, orderI
                 </li>
                 <li>
                     <p>Din order:</p>
+                    <div id="soupList">
                     {antal.filteredSpecialSoups ? antal.filteredSpecialSoups.map(soups => (
                         <p>
                             <span style={{paddingRight: "5px"}}>{antal.AntalSpecialSoups[soups.soupe]}</span>
@@ -202,6 +206,7 @@ const ReceiptCard = ({adress, ort, datum, tid, leveransMeddelande, antal, orderI
                     )) : 
                         ""
                         }
+                    </div>
                 </li>
             </ul>
             </section>

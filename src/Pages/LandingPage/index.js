@@ -54,7 +54,7 @@ const LandingPage = () => {
                 updateState({quantity: quantity + 1});
                 updateState({ref: ref + 1});
                 updateState({totalPris: Number(totalPris) + Number(soup.pris)});
-            } 
+            }
         });
     }
    

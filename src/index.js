@@ -13,9 +13,7 @@ ReactDOM.render(
     <FirebaseProvider>
       <UserProvider>
         <StateContextProvider>
-         
           <App />
-        
         </StateContextProvider>
       </UserProvider>
     </FirebaseProvider>

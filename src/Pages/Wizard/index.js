@@ -2,12 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import {StepContext} from './wizardContext';
 import DeliveryInfo from './deliveryInfo';
 import Overview from './overview';
-
 import PathHeader from '../../Components/PathHeader';
 import { StateContext } from '../../StateContext';
 import { StepContextProvider } from './wizardContext';
-
-
+import {useHistory} from 'react-router-dom';
 
 
 const Wizard = () => {
@@ -16,7 +14,7 @@ const WizardSteps = () => {
 const { stepState , updateStepState} = useContext(StepContext);
 const { state, updateState } = useContext(StateContext);
 const { currentStep, steps } = stepState;
-
+const history = useHistory();
 
 useEffect(() => {  
   let State = JSON.parse(localStorage.getItem("State"));
@@ -35,7 +33,9 @@ useEffect( () => {
 if(currentStep && !steps[2].access) {
   window.scrollTo(0, 0);
 }
-}, [stepState, state, steps, currentStep]);
+
+
+}, [stepState, state, steps, currentStep, history]);
 
 
 
@@ -57,8 +57,7 @@ const handlePay = () => {
   
   if(steps[1].completed && steps[2].access && steps[1].access) {
     updateStepState({currentStep: 1})
-   /*  window.location.hash = "#payment" */
-  
+    
   }
 }
 

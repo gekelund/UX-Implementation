@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
 import { useHistory} from 'react-router-dom';
 import {FilterdSoups} from '../../Utilities';
-
+import {UserContext} from '../../Firebase/UserContext';
+import { StateContext } from '../../StateContext';
 
 const OverviewCardStyling = styled.div.attrs({
-    className: "w-full h-screen",
+    className: "w-full h-auto",
   })`
     & {
         table {
@@ -39,7 +40,8 @@ const OverviewCardStyling = styled.div.attrs({
 const OverviewCard = ({soups}) => {
     const history = useHistory()
     const [antal, setAntal] = useState(FilterdSoups(soups))
-
+    const user  = useContext(UserContext);
+    const { state } = useContext(StateContext);
     
 
     useEffect(() => {
@@ -88,7 +90,13 @@ const OverviewCard = ({soups}) => {
                     )) : 
                         ""
                         }
-                        
+                     {user && !user.isAnonymous && state.discount ? 
+                        <div>
+                            <p>30% på hela köpet</p>
+                        </div>
+                        :
+                        ""
+                    }   
                 </tbody>
             </table>
         </OverviewCardStyling>

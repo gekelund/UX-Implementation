@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect, useRef } from 'react';
+import React, {useContext, useLayoutEffect } from 'react';
 import { StateContext, initialState } from '../../StateContext';
 import { StepContext, initialStepState } from './wizardContext';
 import styled from "styled-components";
@@ -13,14 +13,14 @@ import { useHistory} from 'react-router-dom';
 
 
 const OverviewStyling = styled.div.attrs({
-    className: "w-full h-auto pt-32 pb-64 flex flex-col items-center bg-gray-200",
+    className: "w-full h-auto pt-32 pb-16 pr-4 pl-4 flex flex-col items-center bg-gray-200",
   })`
     & {
         div {
             ${tw`w-full h-auto bg-white text-center text-gray-800 flex flex-col items-center bg-gray-200`}
         }
         table {
-            ${tw`w-max h-auto bg-white`}
+            ${tw`md:w-max h-auto bg-white`}
         }
         tbody {
             ${tw`w-full flex flex-col items-start bg-white`}
@@ -52,7 +52,6 @@ const Overview = () => {
     const {orderId} = state;
     const history = useHistory();
 
-  console.log(user)
 
     const Scrolling = () => {
         let target = document.querySelector('#payment');
@@ -78,7 +77,7 @@ const Overview = () => {
         
         let userId = user?.uid;
         const db = firebase.firestore();
-        
+        updateState({completed: true});
         await db.collection('orders').doc(orderId).set(state);
                   
         await db.doc(`users/${userId}`).set({
@@ -87,8 +86,7 @@ const Overview = () => {
             })
             .then(localStorage.clear())
             .then(() => {
-                updateStepState(initialStepState);
-                updateState(initialState);
+                localStorage.setItem('StepState', JSON.stringify(initialStepState));
             })
             .then(history.push(`/confirmation/${orderId}`))
             .catch(function(error) {

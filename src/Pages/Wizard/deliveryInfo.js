@@ -24,7 +24,7 @@ const DeliveryInfoStyling = styled.div.attrs({
   })`
     & {
         main {
-            ${tw`w-min h-full mt-32 mb-48 text-center`}
+            ${tw`w-min pr-4 pl-4 h-full mt-32 mb-48 text-center`}
         }
         h3 {
             ${tw`font-sans text-xl font-normal text-xl text-gray-600`}
@@ -82,7 +82,7 @@ const DeliveryInfo = () => {
         }
 
         const handleDatePicker = date => {
-            updateState({deliveryinfo: {leveransdatum: date}})
+            updateState({deliveryinfo: {leveransdatum: JSON.stringify(date)}})
             setDate(date);
         } 
         
@@ -90,6 +90,7 @@ const DeliveryInfo = () => {
             let levTid = Object.assign(deliveryinfo, {levernastid: e.target.value})
             updateState({deliveryinfo: levTid})
         }
+
 
     return (
         <DeliveryInfoStyling>

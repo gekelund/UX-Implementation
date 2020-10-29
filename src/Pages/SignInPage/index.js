@@ -14,7 +14,10 @@ const SignInStyling = styled.div.attrs({
             ${tw`border-b-2 pb-10`}
         }
         h5 {
-            ${tw`mt-8 mb-6`}
+            ${tw`mt-16 mb-6`}
+        }
+        h2 {
+            ${tw`pt-4`}
         }
       
         
@@ -27,6 +30,7 @@ const SignInPage = () => {
         <SignInStyling>
             <div>
                 <h1>Logga in</h1>
+                <h2>Logga in med google och få en soppa GRATIS <br />vid köp av 3 eller fler soppor</h2>
                 <h5>Anslut med</h5>
                 <GoogleSignUp />
             </div>

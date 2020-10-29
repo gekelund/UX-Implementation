@@ -65,9 +65,14 @@ const BottomNav = ( ) => {
         setOpen(!open);
     }
 
+    const handleSignout = () => {
+        setOpen(!open);
+        history.push('/');
+    }
+
     return (
         <BottomNavStyle>
-            <ProfileMenu user={user} open={open} />
+            <ProfileMenu user={user} open={open} handleSignout={handleSignout} />
             <nav>
                 <div onClick={handleProfil}>
                         <PersonOutlineOutlinedIcon style={{fontSize: "35", color: "white"}} />

@@ -12,6 +12,7 @@ export const initialState = {
   totalPris: 0,
   deliveryinfo: {},
   dateCreate: Date.now() + 7 * 24 * 60 * 60 * 1000,
+  discount: false,
 };
 
 export const StateContextProvider = ({ children }) => {
