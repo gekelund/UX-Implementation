@@ -15,9 +15,9 @@ const SignOutPage = () => {
     }
 
     return (
-        <div>
-            <button onClick={SignOutUser}>Sign out</button>
-        </div>
+        <>
+            <span onClick={SignOutUser}>Logga ut</span>
+        </>
     )
 }
 

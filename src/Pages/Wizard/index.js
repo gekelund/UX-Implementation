@@ -32,7 +32,7 @@ useEffect( () => {
   localStorage.setItem('StepState', JSON.stringify(stepState));
   localStorage.setItem('State', JSON.stringify(state));
 
-if(currentStep && currentStep !==2) {
+if(currentStep && !steps[2].access) {
   window.scrollTo(0, 0);
 }
 }, [stepState, state, steps, currentStep]);

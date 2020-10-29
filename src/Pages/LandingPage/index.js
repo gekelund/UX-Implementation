@@ -5,11 +5,10 @@ import styled from "styled-components";
 import tw from "tailwind.macro";
 import { soups } from '../../Components/SoupCard/Soups';
 import TopBar from '../../Components/TopBar';
-import SignOutPage from '../../Components/SignOut';
 
 
 const LandingStyling = styled.div.attrs({
-    className: "w-full h-screen flex flex-column flex-wrap mt-32 pb-32 justify-center",
+    className: "w-full h-auto flex flex-column flex-wrap pt-32 pb-32 justify-center",
   })`
     & {
         main {
@@ -83,7 +82,6 @@ const Menu = () => {
         <LandingStyling>
             <TopBar number={quantity} totalpris={totalPris} soupeList={soupe} handleDelete={handleDelete} />
           <Menu />
-            <SignOutPage />
         </LandingStyling>
     )
 }
