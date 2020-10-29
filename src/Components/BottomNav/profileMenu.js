@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SignOut from '../SignOut';
 
@@ -23,14 +23,14 @@ const ProfileSection = styled.section`
     }
 `;
 
-const ProfileMenu = ({user, open}) => {
+const ProfileMenu = ({user, open, handleSignout}) => {
     
 
     return (
         <ProfileSection style={open ? {display: "block"} : {display: "none"}}>
         {user ? 
         <ul>
-            <li><SignOut /></li>
+            <li onClick={handleSignout}><SignOut /></li>
         </ul>
         : "Inte inloggad"}
       </ProfileSection>

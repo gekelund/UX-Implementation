@@ -2,11 +2,12 @@ import React from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import DirectionsBikeOutlinedIcon from '@material-ui/icons/DirectionsBikeOutlined';
-import {Link} from 'react-router-dom';
+import Moment from 'react-moment';
+
 
 
 const DeliveryOverviewCardStyling = styled.div.attrs({
-    className: "w-full h-screen",
+    className: "w-auto h-auto",
   })`
     & {
         table {
@@ -76,7 +77,7 @@ const DeliveryOverviewCard = ({deliveryinfo}) => {
                         </tr>
                          <tr>
                             <td>Levernasdag / tid</td>
-                            <td>{deliveryinfo.leveransdatum ? deliveryinfo.leveransdatum.toString().substring(0, 10) : ""}</td>
+                            <td>{deliveryinfo.leveransdatum ? <Moment format="YYYY/MM/DD">{JSON.parse(deliveryinfo.leveransdatum)}</Moment> : ""}</td>
                             <td>{deliveryinfo.levernastid}</td>
                         </tr> 
                         </>

@@ -12,7 +12,7 @@ const AppStyles = styled.div.attrs({
       ${tw`text-gray-700 text-lg`}
     }
     h2 {
-      ${tw`text-2xl font-hairline mt-5 text-teal-500`}
+      ${tw`font-sans text-xl font-semibold text-2xl text-gray-900`}
     }
     ul {
       ${tw`inline-flex`}
@@ -20,9 +20,7 @@ const AppStyles = styled.div.attrs({
     li {
       ${tw`mr-5`}
     }
-    a {
-      ${tw`text-blue-500 hover:text-gray-500 hover:underline`}
-    }
+   
   }
 `;
 export default AppStyles;

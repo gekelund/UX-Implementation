@@ -24,7 +24,7 @@ const CountDown = ({ hours = 0, minutes = 35, seconds = 0 }) => {
           minutes: 59,
           seconds: 59
         });
-      } else if (time.seconds == 0) {
+      } else if (time.seconds === 0) {
         setTime({
           hours: time.hours,
           minutes: time.minutes - 1,

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import tw from "tailwind.macro";
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
 import Dropdown from './dropdown';
 
 const TopBarStyling = styled.div.attrs({
@@ -9,7 +10,7 @@ const TopBarStyling = styled.div.attrs({
   })`
     & {
         nav {
-            ${tw`w-full md:w-min h-full flex items-end justify-between md:mr-auto text-center pb-2 ml-4 mr-4`}
+            ${tw`w-full h-full flex items-end justify-between md:mr-auto text-center pb-2 ml-4 mr-4`}
         }
         p {
             ${tw`font-sans font-semibold text-base text-gray-800 m-1`}
@@ -29,6 +30,10 @@ const TopBarStyling = styled.div.attrs({
 const TopBar = ({number, totalpris, soupeList, handleDelete}) => {
     const [ open, setOpen ] = useState(false);
 
+    useEffect(() => {
+      
+    }, [])
+
     const handleDropdown = () => {
         setOpen(!open)
     }
@@ -37,7 +42,8 @@ const TopBar = ({number, totalpris, soupeList, handleDelete}) => {
         <TopBarStyling>
             <nav>
                 <div>
-                    <LocalMallOutlinedIcon fontSize="large" onClick={handleDropdown} />
+                    {number <= 0 ? <LocalMallOutlinedIcon style={{cursor: "pointer"}} fontSize="large" onClick={handleDropdown} />
+                    : <LocalMallIcon style={{cursor: "pointer"}} fontSize="large" onClick={handleDropdown} />}
                     <span><h4>{number}</h4></span>
                 </div>
                 <div>

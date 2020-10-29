@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import BottomNav from '../Components/BottomNav';
 import EditPage from '../Pages/EditPage';
 import LandingPage from '../Pages/LandingPage';
@@ -14,7 +14,8 @@ export const SIGN_IN = '/signin';
 export const WIZARD = '/wizard';
 export const EDIT = '/edit/:soupID';
 export const CONFIRMATION = '/Confirmation/:orderID';
-export const SUPPORT = '/support'
+export const SUPPORT = '/support';
+
 
 const Routes = () => (
     <Router>
@@ -26,6 +27,7 @@ const Routes = () => (
             <Route path={EDIT} component={EditPage} /> 
             <Route path={CONFIRMATION} component={Confirmation} />
             <Route path={SUPPORT} component={SupportPage} />
+            <Redirect from='*' to='/' />
         </Switch>
         <BottomNav />
     </Router>
